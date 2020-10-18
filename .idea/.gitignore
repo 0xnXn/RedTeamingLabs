@@ -2,7 +2,11 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
+<<<<<<< HEAD
 /../../../../:\CyberSmithSecure\RedTeamingLabs\.idea/dataSources/
+=======
+/../../../../../../:\Users\pbpl1\Desktop\RedTeamingLabs\.idea/dataSources/
+>>>>>>> bce58220ff336f8fd1f2d5579075c11333c2bcdc
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
