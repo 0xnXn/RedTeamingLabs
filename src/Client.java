@@ -2,32 +2,27 @@ import java.net.*;
 import java.io.*;
 
 public class Client {
-    private Socket socket            = null;
-    private DataInputStream  input   = null;
-    private DataOutputStream out     = null;
 
     // constructor to put ip address and port
     public Client(String address, int port)
     {
         // establish a connection
+        DataInputStream input = null;
+        Socket socket = null;
+        DataOutputStream out = null;
         try
         {
             socket = new Socket(address, port);
             System.out.println("Connected");
 
             // takes input from terminal
-            input  = new DataInputStream(System.in);
+            input = new DataInputStream(System.in);
 
             // sends output to the socket
-            out    = new DataOutputStream(socket.getOutputStream());
-        }
-        catch(UnknownHostException u)
+            out = new DataOutputStream(socket.getOutputStream());
+        } catch(IOException u)
         {
             System.out.println(u);
-        }
-        catch(IOException i)
-        {
-            System.out.println(i);
         }
 
         // string to read message from input
@@ -38,7 +33,10 @@ public class Client {
         {
             try
             {
-                line = input.readLine();
+                if (input != null) {
+                    line = input.readLine();
+                }
+                assert out != null;
                 out.writeUTF(line);
             }
             catch(IOException i)
@@ -60,8 +58,8 @@ public class Client {
         }
     }
 
-    public static void main(String args[])
+    public static void main(String[] args)
     {
-        Client client = new Client("127.0.0.1", 500);
+        new Client("127.0.0.1", 5000);
     }
 }

@@ -2,9 +2,6 @@ import java.net.*;
 import java.io.*;
 
 public class Server {
-    private Socket          socket   = null;
-    private ServerSocket    server   = null;
-    private DataInputStream in       =  null;
 
     // constructor with port
     public Server(int port)
@@ -12,16 +9,16 @@ public class Server {
         // starts server and waits for a connection
         try
         {
-            server = new ServerSocket(port);
+            ServerSocket server = new ServerSocket(port);
             System.out.println("Server started");
 
             System.out.println("Waiting for a client ...");
 
-            socket = server.accept();
+            Socket socket = server.accept();
             System.out.println("Client accepted");
 
             // takes input from the client socket
-            in = new DataInputStream(
+            DataInputStream in = new DataInputStream(
                     new BufferedInputStream(socket.getInputStream()));
 
             String line = "";
@@ -52,8 +49,8 @@ public class Server {
         }
     }
 
-    public static void main(String args[])
+    public static void main(String[] args)
     {
-        Server server = new Server(5000);
+        new Server(5000);
     }
 }
