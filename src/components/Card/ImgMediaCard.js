@@ -38,7 +38,7 @@ export default function ImgMediaCard() {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions  style={{ display: "inline", }}>
         <Button size="small" color="primary">
           Create
         </Button>

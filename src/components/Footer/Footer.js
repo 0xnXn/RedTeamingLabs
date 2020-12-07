@@ -19,10 +19,10 @@ export default function Footer(props) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a href="#home" className={classes.block}>
-                Home
+                Labs
               </a>
             </ListItem>
-            <ListItem className={classes.inlineBlock}>
+            {/* <ListItem className={classes.inlineBlock}>
               <a href="#company" className={classes.block}>
                 Company
               </a>
@@ -36,7 +36,7 @@ export default function Footer(props) {
               <a href="#blog" className={classes.block}>
                 Blog
               </a>
-            </ListItem>
+            </ListItem> */}
           </List>
         </div>
         <p className={classes.right}>
@@ -44,7 +44,7 @@ export default function Footer(props) {
             &copy; {1900 + new Date().getYear()}{" "}
             <a
               href="#"
-              target="_blank"
+              // target="_blank"
               className={classes.a}
             >
             RedTeamingLabs

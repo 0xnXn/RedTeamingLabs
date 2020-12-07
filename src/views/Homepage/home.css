@@ -1,0 +1,260 @@
+.day{
+    display: flex;
+    justify-content: flex-end;  
+    text-shadow: -2px 1px 10px rgba(0,0,0,100);
+}
+.title{
+    font-size: 11em;
+    font-weight: 900;
+}
+.count{
+    font-size: 4em;
+}
+.event{
+    margin-bottom:0em;
+    min-height:200px;
+    color:black;
+    display:flex;
+    align-items:center;
+}
+.wishlist{
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
+/* .event-img {
+    width: fit-content;
+} */
+
+.evtimg-cont {
+    padding: 0.5rem;;
+    padding-left: 1.8em;
+    min-height: 14rem;
+} 
+
+.evtimg {
+    max-height: 16rem;
+    width: 16rem;
+}
+@media screen and (min-width: 800px) {
+    .waveCont {
+        height: 600px;
+    }
+    .waveWrapper {
+        height: 700px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .mbv{
+        display: flex;    
+        flex-direction: column;
+        justify-content: center;
+    }
+    .event{
+        justify-content: center;
+        text-align: center;
+    }
+    .evtimg-cont {
+        padding-left: 0.5rem;
+    }
+    .evtimg {
+        max-height: 16rem;
+        width: auto;
+    }
+    .eventcont-cont {
+        justify-content: center;
+    }
+    .eventcont .event-type h5 {
+        justify-content: center;
+    }
+    .eventcont .event-venue h4 {
+        justify-content: center;
+    }
+    .book-now-btn {
+        display: flex;
+        justify-content: center;
+    }
+    .book-now-btn button{
+        /* width: 6rem;
+        height: 2.6rem; */
+        padding: 0.5em;
+        font-size: 1rem;
+    }
+    .day{
+        justify-content: center;
+    }
+    .title{
+        font-size: 3em;
+    }
+    .count{
+        font-size: 2em;
+    }
+    .wishlist{
+        position: absolute;
+        right: 10%;
+        bottom: 250px;
+        padding:3px;
+    }
+}
+.daybox{
+    box-shadow: 4px 6px 12px 0px rgba(47,46,46, 0.5);
+}
+.glow{
+    text-shadow: -4px 1px 20px #9c9c9c;
+}
+
+.asd{
+    font-size: 0.4em;
+    writing-mode: vertical-lr;
+    font-weight: 600;
+}
+.th{
+    font-size: 0.5em;
+}    
+.bttlb{
+    display: inline;
+}
+
+.btn:hover {
+    border-radius: 10px;
+    transition: 0.3s;
+}
+.spsr{
+    /* border:8px solid rgb(85, 75, 185); */
+    border:8px solid rgb(31, 105, 230);   
+    border-radius: 25px;
+    height:175px;
+    width:300px;
+    background-color: #fff;
+    background-image: url('https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png');
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-clip:content-box;
+    background-size: 12em;
+    margin: 20px;
+}
+
+a.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+
+.svg-icon {
+    width: 3em;
+    height: 3em;
+  }
+  .svg-icon path,
+  .svg-icon polygon,
+  .svg-icon rect {
+    fill: red;
+  }
+  
+  .svg-icon circle {
+    stroke:red;
+    stroke-width: 1;
+  }
+  .loc{
+    width: 2em;
+    height: 2em;
+    fill: yellowgreen;
+    stroke:yellowgreen;
+    padding-right: 5px;
+  }
+
+  .cal{
+    width: 1.5em;
+    height: 1.5em;
+    fill: goldenrod;
+    stroke:goldenrod;
+    padding-right: 5px;
+  }
+
+  .fav path,
+  .fav polygon,
+  .fav rect {
+    fill: white;
+  }
+
+  .fav {
+    width: 10em;
+    height: 10em;
+    fill: white;
+    stroke:black;
+    margin: 2em;
+  }
+
+.eventcont-cont {
+    display: flex;
+    align-items: center;
+}
+
+.eventcont {
+    color: #1b273d;
+}
+
+.eventcont h2{
+    font-weight: 800;
+}
+
+.eventcont .evt-venue-icon{
+    color: rgba(38, 146, 208, 0.8)
+}
+
+.eventcont .event-type h5 {
+    display: flex;
+    /* align-Items: center; */
+    /* margin: 0; */
+    /* padding: 6px; */
+}
+
+.eventcont .evt-type-icon {
+    color: rgb(34, 83, 136)
+}
+
+.eventcont .event-venue h4{
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.eventcont .evt-name-icon {
+    font-size: 2.5rem;
+}
+
+.eventcont .evttime {
+    background: rgba(15, 204, 231, 0.25);
+    border-radius: 10px;
+    display: inline-block;
+       
+}
+
+.eventcont .evttime h5{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 6px;
+    font-weight: 800;
+}
+
+.eventcont .evttime span {
+    color: #efa506;
+    font-weight: 650;
+    text-transform: uppercase;
+}
+
+.eventcont h5{
+    font-weight: initial;
+}
+
+.event-card button{
+    background-color: #0fcce7;
+    color: white; 
+}
+
+.event-card button:hover {
+    background-color: rgb(38, 146, 208);
+    color: white; 
+}

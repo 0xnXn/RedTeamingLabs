@@ -29,7 +29,7 @@ import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import ImgMediaCard from "components/Card/ImgMediaCard";
-import FlippingCardPage from "../../components/Card/FlippingCardPage";
+// import FlippingCardPage from "../../components/Card/FlippingCardPage";
 
 import { bugs, website, server } from "variables/general.js";
 
