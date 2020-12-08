@@ -28,7 +28,8 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-import ImgMediaCard from "components/Card/ImgMediaCard";
+import ImgMediaCard1 from "components/Card/ImgMediaCard1";
+import ImgMediaCard2 from "components/Card/ImgMediaCard2"
 // import FlippingCardPage from "../../components/Card/FlippingCardPage";
 
 import { bugs, website, server } from "variables/general.js";
@@ -50,20 +51,20 @@ export default function Dashboard() {
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
 
-          <ImgMediaCard/>
+          <ImgMediaCard1/>
 
 
         </GridItem>
       
         <GridItem xs={12} sm={6} md={3}>
 
-        <ImgMediaCard/>
+        <ImgMediaCard2/>
 
 
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
 
-          <ImgMediaCard/>
+          <ImgMediaCard1/>
 
 
         </GridItem>

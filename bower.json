@@ -1,10 +1,10 @@
 {
-  "name": "material-dashboard-react",
-  "homepage": "https://github.com/creativetimofficial/material-dashboard-react",
+  "name": "RedTeamingLabs",
+  "homepage": "#",
   "authors": [
     "creative-tim"
   ],
-  "description": "A Badass Material-UI Kit based on Material Design",
+  "description": "",
   "main": "public/index.html",
   "keywords": [
     "material",

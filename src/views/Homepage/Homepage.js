@@ -210,7 +210,7 @@ const Homepage = (props) => {
                                 fontSize: "2.6em"
                             }}
                         >
-                            Etamax 2020
+                            RedTeamingLabs
           </h2>
                         <h4
                             style={{
@@ -227,15 +227,16 @@ const Homepage = (props) => {
                             }}
 
                         >
-                            ETAMAX is the annual techno-cultural inter college fest
-                            of FCRIT. It is an exceptional confluence of exquisite
-                            cultural displays with technical innovations and
-                            reverberating in an aura filled with ecstasy, euphoria
-                            and exhilaration.
-                            This year, for ETAMAX 2020 we are all set with yet
-                            another ravishing theme – ETAMAX LEHER which is
-                            going to take the maximum of every student’s potential
-                            under its majestic wave.
+                           Red Teaming is a full-scope, multi-layered attack simulation designed to measure how well a company’s people and networks, applications and physical security controls can withstand an attack from a real-life adversary.
+To put red teaming in layman’s terms, it’s “ethical hacking”—a way for independent security teams to test how well an organization would fare in the face of a real attack.
+A thorough red team test will expose vulnerabilities and risks regarding:
+<ul><li>Technology — Networks, applications, routers, switches, appliances, etc.</li>
+<li>People — Staff, independent contractors, departments, business partners, etc.</li>
+<li>Physical — Offices, warehouses, substations, data centers, buildings, etc.</li>
+</ul>
+The premise of red teaming is comparable to the old sports saying, ‘the best offense is a good defense.’ Red teaming helps a business remain competitive while securing its business interests by leveraging social engineering and physical, application and network penetration testing to find ways to shore up your defenses.
+During a red team engagement, highly trained security consultants enact attack scenarios to reveal potential physical, hardware, software and human vulnerabilities. Red team engagements also identify opportunities for bad actors and malicious insiders to compromise company systems and networks or enable data breaches.
+
 
           </p>
                         <h2
@@ -245,7 +246,7 @@ const Homepage = (props) => {
                                 fontSize: "2.6em"
                             }}
                         >
-                            Leher
+                            RedTeaming Training Course
           </h2>
                         <h4
                             style={{
@@ -262,29 +263,21 @@ const Homepage = (props) => {
                             }}
 
                         >
-                            While we have all accepted our present inertia, we do
-                            long for a wave of freshness and delight and ETAMAX is
-                            always there to wash that monotony off of our
-                            lives. The theme we present this time is thus, ‘Leher’ - a
-                            wave of the most marvellous cultural and artistic
-                            pursuits and technical novelties to leave away a breezy
-                            aftertaste of euphoria and the beautiful corals of
-                            memories, as it washes off the shore.
-                            Let your symphonic appreciation and indulgence in art
-                            and culture be as mighty as the great wave off
-                            Kanagawa as we treat you with a series of events
-                            organised just for you.
-                            That’s not all, for all of you tech savvy beans these three
-                            fabulous days are for you to translate your ideas into
-                            ripples of innovation and exercise the entirety of your
-                            technical acumen in the sea of events we present.
-                            Now who doesn’t love the soothing waves crashing
-                            against your feet while they sink into the soft sand.
-                            Hence, with ETAMAX 2020, we strive to bring you this
-                            exact feeling of calm accompanied with the enthralment
-                            of exploring new ideas, widening your horizons and
-                            letting your creative juices flow, while you bask in the
-                            January sun and enjoy the cool winter breeze.
+                            Red Team Training Course is a course designed to teach participants methods on how to compromise organisations both physically and electronicaly.
+
+The term “Red Team Testing’ is used to define an attacker whose purpose is to penetrate a company’s security using any means at their disposal. While a typical External Penetration Test would identify and exploit vulnerabilities in external internet systems only, a Red Team Test attacks would range from Electronic, to Physical, to Social.
+
+During the 3 day course, you will learn:
+<ul>
+<li>Using Open Source Recon tools</li>
+<li>Developing Attack Plan</li>
+<li>Pretext Creation and Methods</li>
+<li>Physical Entry Methods</li>
+<li>System Level Attacks</li>
+<li>Misc.</li>
+</ul> 
+items from a combined 20 years of experience
+On the final day, you will be involved in gaining access using the tools and techniques you've learnt into a simulated organisation..
 
           </p>
                     </div>

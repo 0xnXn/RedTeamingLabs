@@ -11,12 +11,13 @@ import redlab from '../../images/red.jpg'
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 500 ,
+    maxWidth: 1000 ,
+    width :300
    
   },
 });
 
-export default function ImgMediaCard() {
+export default function ImgMediaCard1() {
   const classes = useStyles();
 
   return (
@@ -31,10 +32,10 @@ export default function ImgMediaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Infrastructure x
+            Infrastructure 2
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-          The lab is tightly integrated with the course and is designed as a practice lab rather than a challenge lab. We cover topics like AD enumeration, trusts mapping, domain privilege escalation, domain persistence, Kerberos based attacks (Golden ticket, Silver ticket and more), ACL issues, SQL server trusts, Defenses and bypasses of defenses.
+          OWASP TOP 10
           </Typography>
         </CardContent>
       </CardActionArea>
