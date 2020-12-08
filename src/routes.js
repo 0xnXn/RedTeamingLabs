@@ -36,10 +36,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   // {
-  //   path: "/rtl-page",
-  //   name: "RTL Support",
+  //   path: "/notification",
+  //   name: "Notification",
   //   icon: Language,
-  //   component: RTLPage,
+  //   component: NotificationsPage,
   //   layout: "/admin"
   // },
   // {

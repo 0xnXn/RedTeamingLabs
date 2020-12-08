@@ -24,15 +24,16 @@ const Homepage = (props) => {
             setVantaEffect(NET({
                 el: myRef.current,
                 THREE: THREE,
-                mouseControls: false,
+                mouseControls: true,
                 touchControls: false,
                 gyroControls: false,
                 // minHeight: 50.00,
                 // minWidth: 50.00,
                 scale: 1.00,
                 scaleMobile: 1.00,
-                // maxHeight: 300.00,
-                // maxWidth: 300.00,
+                points: 15.00,
+                maxDistance: 23.00,
+                spacing: 13.00,
                 backgroundColor: 0x2d2d2d,
                 color: 0xa0c37d
             }))
@@ -194,13 +195,13 @@ const Homepage = (props) => {
                     }}
                 >
                     <div
-                        className="pa3"
+                        className="pa1"
                         style={{
                             color: "#153454",
                             fontWeight: "350",
                             textAlign: "justify",
                             justifyContent: "center",
-                            padding: "10%"
+                            padding: "5%"
                         }}
                         data-aos="fade-down"
                     >
