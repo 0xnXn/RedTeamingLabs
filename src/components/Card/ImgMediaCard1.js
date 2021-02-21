@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import redlab from '../../images/red.jpg';
 import server from '../../server';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+
 // import { ResumeKali, StopKali,Startkali,PauseKali } from './Vbox';
 import NotificationsPage from "views/Notifications/Notifications.js";
 
@@ -154,6 +156,7 @@ export default function ImgMediaCard1() {
         </CardContent>
       </CardActionArea>
       <CardActions style={{ display: "inline", }}>
+        <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
         <Button size="small" color="primary" onClick={() => { handleInfra('start'); showNotification("tl") }}>
           Request
         </Button>
@@ -163,9 +166,17 @@ export default function ImgMediaCard1() {
         <Button size="small" color="primary" onClick={() => handleInfra('pause')} >
           Pause
         </Button>
+         
+        <Button size="small" color="primary" onClick={() => handleInfra('stop')} >
+          status
+        </Button>
+
+
         <Button size="small" color="primary" onClick={() => handleInfra('stop')} >
           Delete
         </Button>
+        </ButtonGroup>
+        
       </CardActions>
     </Card>
   );

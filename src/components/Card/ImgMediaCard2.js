@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import redlab from '../../images/red.jpg'
 
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 1000 ,
@@ -19,6 +21,8 @@ const useStyles = makeStyles({
 
 export default function ImgMediaCard1() {
   const classes = useStyles();
+
+  
 
   return (
     <Card className={classes.root}>
@@ -40,6 +44,7 @@ export default function ImgMediaCard1() {
         </CardContent>
       </CardActionArea>
       <CardActions  style={{ display: "inline", }}>
+      <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
         <Button size="small" color="primary">
           Create
         </Button>
@@ -49,9 +54,15 @@ export default function ImgMediaCard1() {
         <Button size="small" color="primary">
           Pause
         </Button>
+
+        <Button size="small" color="primary">
+          Status
+        </Button>
+
         <Button size="small" color="primary">
           Delete
         </Button>
+        </ButtonGroup>
       </CardActions>
     </Card>
   );

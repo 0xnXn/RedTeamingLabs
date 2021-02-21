@@ -30,6 +30,7 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import ImgMediaCard1 from "components/Card/ImgMediaCard1";
 import ImgMediaCard2 from "components/Card/ImgMediaCard2"
+import "./test.css"
 // import FlippingCardPage from "../../components/Card/FlippingCardPage";
 
 import { bugs, website, server } from "variables/general.js";
@@ -41,6 +42,7 @@ import {
 } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import { TextsmsTwoTone } from "@material-ui/icons";
 
 const useStyles = makeStyles(styles);
 
@@ -49,14 +51,14 @@ export default function Dashboard() {
   return (
     <div>
       <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={8} md={4}>
 
           <ImgMediaCard1/>
 
 
         </GridItem>
       
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={4}>
 
         <ImgMediaCard2/>
 
@@ -103,7 +105,7 @@ export default function Dashboard() {
           <Card chart>
             <CardHeader color="warning">
               <ChartistGraph
-                className="ct-chart"
+                cbsssName="ct-chart"
                 data={emailsSubscriptionChart.data}
                 type="Bar"
                 options={emailsSubscriptionChart.options}

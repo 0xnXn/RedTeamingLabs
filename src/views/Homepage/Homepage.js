@@ -31,9 +31,9 @@ const Homepage = (props) => {
                 // minWidth: 50.00,
                 scale: 1.00,
                 scaleMobile: 1.00,
-                points: 15.00,
+                points: 5.00,
                 maxDistance: 23.00,
-                spacing: 13.00,
+                spacing: 15.00,
                 backgroundColor: 0x2d2d2d,
                 color: 0xa0c37d
             }))
@@ -139,7 +139,7 @@ const Homepage = (props) => {
                             </h3>
                         </Animated> */}
                             <div style={{ color: "white", }}>
-                                <h1 style={{ fontWeight: '300' }}> Red Teaming Lab </h1>
+                                <h1 style={{ fontWeight: '300',fontFamily:"lobster" }}> Red Teaming Lab </h1>
                                 <h3>  </h3>
                             </div>
                             <div
@@ -208,7 +208,8 @@ const Homepage = (props) => {
                         <h2
                             style={{
                                 fontWeight: "780",
-                                fontSize: "2.6em"
+                                fontSize: "2.6em",
+                                fontFamily:"lobster"
                             }}
                         >
                             RedTeamingLabs
@@ -245,6 +246,8 @@ During a red team engagement, highly trained security consultants enact attack s
                                 paddingTop: '1em',
                                 fontWeight: "780",
                                 fontSize: "2.6em"
+                                ,
+                                fontFamily:"lobster"
                             }}
                         >
                             RedTeaming Training Course
