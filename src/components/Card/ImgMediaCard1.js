@@ -151,8 +151,7 @@ export default function ImgMediaCard1() {
             Infrastructure 1
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            The lab is tightly integrated with the course and is designed as a practice lab rather than a challenge lab. We cover topics like AD enumeration, trusts mapping, domain privilege escalation, domain persistence, Kerberos based attacks (Golden ticket, Silver ticket and more), ACL issues, SQL server trusts, Defenses and bypasses of defenses.
-          </Typography>
+           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions style={{ display: "inline", }}>

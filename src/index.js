@@ -7,6 +7,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
 import Homepage from "views/Homepage/Homepage.js";
+import Learn from "components/Card/Learn"
 
 import "assets/css/material-dashboard-react.css?v=1.9.0";
 
@@ -16,8 +17,11 @@ ReactDOM.render(
   <Router history={hist}>
     <Switch>
       <Route path="/admin" component={Admin} />
+      <Route path="/admin/learn" component={Learn}/>
       <Route path="/rtl" component={RTL} />
       <Route path="/" component={Homepage} />
+      
+
       <Redirect from="/" to="/admin/dashboard" />
     </Switch>
   </Router>,

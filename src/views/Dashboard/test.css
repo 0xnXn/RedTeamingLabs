@@ -5,3 +5,8 @@
 .makeStyles-logoLink-9{
     font-family: "lobster"!important;
 }
+.test{
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+    height: auto;
+    width: 100%;
+}

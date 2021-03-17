@@ -39,7 +39,7 @@ export default function ImgMediaCard1() {
             Infrastructure 2
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-          OWASP TOP 10
+         
           </Typography>
         </CardContent>
       </CardActionArea>

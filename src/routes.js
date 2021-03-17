@@ -19,6 +19,10 @@ import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
 import Homepage from "views/Homepage/Homepage.js";
+import Aboutus from '../src/components/Card/Aboutus'
+import Access from '../src/components/Card/Access'
+import Learn from './components/Card/Learn'
+import Machine from "./components/Card/machine"
 
 const dashboardRoutes = [
   {
@@ -35,6 +39,39 @@ const dashboardRoutes = [
     component: UserProfile,
     layout: "/admin"
   },
+  {
+    path: "/access",
+    name: "Access",
+    icon: Person,
+    component: Access,
+    layout: "/admin"
+  },
+  {
+    path: "/learn",
+    name: "Learn",
+    icon: Person,
+    component: Learn,
+    layout: "/admin"
+  },
+  {
+    path: "/machine",
+    name: "Machine",
+    icon: Person,
+    component: Machine,
+    layout: "/admin"
+  },
+
+
+  {
+    path: "/about",
+    name: "About us",
+    icon: Person,
+    component: Aboutus,
+    layout: "/admin"
+  },
+
+
+
   // {
   //   path: "/notification",
   //   name: "Notification",

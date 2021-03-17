@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
+import css from "images/cybersmithsecure.png"
 import Hidden from "@material-ui/core/Hidden";
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";
@@ -42,8 +43,10 @@ export default function Header(props) {
           <Button color="transparent" href="#" className={classes.title}>
             {makeBrand()}
           </Button>
+        <img src={css} style={{marginLeft:"60%"}}/>
+
         </div>
-        <Hidden smDown implementation="css">
+        {/* <Hidden smDown implementation="css">
           {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
         </Hidden>
         <Hidden mdUp implementation="css">
@@ -54,7 +57,7 @@ export default function Header(props) {
           >
             <Menu />
           </IconButton>
-        </Hidden>
+        </Hidden> */}
       </Toolbar>
     </AppBar>
   );
