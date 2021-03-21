@@ -15,14 +15,14 @@ import Card from 'react-bootstrap/Card';
 import Switch from "react-switch";
 import { Component } from "react";
 import { Container } from "@material-ui/core";
-
+import Button from 'react-bootstrap/Button'
 
 
 
 class Machine extends Component {
     constructor() {
         super();
-        this.state = { checked1: false, checked2: false, checked3: false };
+        this.state = { checked1: false, checked2: false, checked3: false,data: []    };
         this.machine1 = this.machine1.bind(this);
         this.machine2 = this.machine2.bind(this);
         this.machine3 = this.machine3.bind(this);
@@ -40,6 +40,20 @@ class Machine extends Component {
         this.setState({ checked3 });
 
     }
+    setStateHandler = () => {
+
+
+        fetch("https://geolocation-db.com/json/")
+            .then(res => res.json())
+            .then(res => {
+                console.log(res.IPv4)
+                this.setState({
+                    data: res.IPv4
+                })
+            })
+            .catch(err => console.log(err))
+
+    };
 
     render() {
 
@@ -55,97 +69,22 @@ class Machine extends Component {
             borderBlockColor: "yellowgreen"
 
         }}>
-            {/* <CardDeck style={{marginLeft:"5%",marginRight:"5%"}}>
-                <Card
-                    bg="dark"
-                    text="light"
-                    style={{ width: '40rem' }}
-                    className="mb-2"
-                >
 
-                    <Card.Body>
-
-                        <Card.Title> Machine 1 </Card.Title>
-
-                        <div style={{ width: "100px", height: "100px", marginLeft: "30%" }} >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
-                        </div>
-                        <div style={{ marginLeft: "80%" }}>
-
-
-                            <Switch
-                                onChange={this.machine1}
-                                checked={this.state.checked1}
-                                id="normal-switch"
-                            />
-
-
-                        </div>
-
-                    </Card.Body>
-
-                </Card>
-                <Card
-                    bg="dark"
-                    text="light"
-                    style={{ width: '10rem' }}
-                    className="mb-2"
-                >
-                    <Card.Body>
-                        <Card.Title>Machine 2 </Card.Title>
-                        <div style={{ width: "100px", height: "100px", marginLeft: "30%" }} >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
-                        </div>
-                        <div style={{ marginLeft: "80%" }}>
-
-
-                            <Switch
-                                onChange={this.machine2}
-                                checked={this.state.checked2}
-                                id="normal-switch"
-                            />
-
-
-                        </div>
-                    </Card.Body>
-                </Card>
-                <Card
-                    bg="dark"
-                    text="light"
-                    style={{ width: '10rem' }}
-                    className="mb-2"
-                >
-
-                    <Card.Body>
-                        <Card.Title>Machine 3</Card.Title>
-                        <Card.Text>
-                            <div style={{ width: "100px", height: "100px", marginLeft: "30%" }} >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
-                            </div>
-
-                        </Card.Text>
-                        <div style={{ marginLeft: "80%" }}>
-
-
-                            <Switch
-                                onChange={this.machine3}
-                                checked={this.state.checked3}
-                                id="normal-switch"
-                            />
-
-
-                        </div>
-
-                    </Card.Body>
-                </Card>
-            </CardDeck> */}
             <Container>
-                <Row >
+               <Row style={{marginBottom:"50px",width:"300px",marginLeft:"70%"}}>
+                   <Col>
+                    <Button onClick={this.setStateHandler}>Update IP</Button>
+                    </Col>
+                    <Col>
+                    <h4 style={{ color: "green" }}> IP: {this.state.data}</h4>
+                    </Col>
+                    </Row>
+                <Row style={{ marginRight: "10px" }}>
 
-                    <FlippyTemp > </FlippyTemp>
-                    
-                    <FlippyTemp > </FlippyTemp>
-                    <FlippyTemp > </FlippyTemp>
+                    <FlippyTemp id={1} frontName={"Machine1"}> </FlippyTemp>
+
+                    <FlippyTemp id={2} frontName={"Machine2"}> </FlippyTemp>
+                    <FlippyTemp id={3} frontName={"Machine3"}> </FlippyTemp>
 
                 </Row>
             </Container>
