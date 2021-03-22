@@ -224,8 +224,8 @@ export default class FlippyTemp1 extends Component {
                             <Row style={{ marginLeft: "20%", marginBottom: "10px" }}>
                                 {this.props.frontName}
                             </Row>
-                            <Row style={{ marginLeft: "35%" }}>
-                                <Button onClick={this.initializeServer} >Initialize</Button>
+                            <Row style={{ marginLeft: "31%" }}>
+                                <Button onClick={this.initializeServer} style={{backgroundColor: "yellowgreen", borderColor: "yellowgreen"}} >Initialize</Button>
                             </Row>
                         </Container>
 
