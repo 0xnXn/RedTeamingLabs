@@ -16,6 +16,8 @@ import Switch from "react-switch";
 import { Component } from "react";
 import { Container } from "@material-ui/core";
 import Button from 'react-bootstrap/Button'
+import { ListGroup } from "react-bootstrap";
+import { Label } from "@material-ui/icons";
 /* TO-DO
 A new button to Initialize machine
 After timer Flipped wala button enable By default running state mai hota hai
@@ -80,7 +82,7 @@ class Machine extends Component {
     render() {
 
         return (<div style={{
-            display: "inline-block",
+            display: "flex",
             borderRadius: "25px",
             border: "2px solid white",
 
@@ -92,23 +94,86 @@ class Machine extends Component {
 
         }}>
 
-            <Container>
-                <Row style={{ marginBottom: "50px", width: "300px", marginLeft: "70%" }}>
-                    <Col>
-                        <Button onClick={this.setStateHandler}>Update IP</Button>
-                    </Col>
-                    <Col>
-                        <h4 style={{ color: "green" }}> IP: {this.state.data}</h4>
-                    </Col>
-                </Row>
-                <Row style={{ marginRight: "10px" }}>
+            <Container >
+                <div className="d-flex justify-content-center">
+                    <h1 className="text-white">Infrastructures</h1>
+                </div>
+                {/* <div className="d-flex justify-content-end">
+                    <Row lassName="justify-content-md-center" style={{ width: "30%" }}>
+                        <Col className="flex-start">
+                            <Button onClick={this.setStateHandler}>Update IP</Button>
+                        </Col>
+                        <Col className="flex-start">
+                            <h4 style={{ color: "green" }}> IP: {this.state.data}</h4>
+                        </Col>
+                    </Row>
+                </div> */}
+                <div className="pt-3">
+                    <Row style={{ flex: "1", marginRight: "10px", justifyContent: "space-evenly", }}>
 
-                    <FlippyTemp id={1} frontName={"Machine1"} status={this.state.status} > </FlippyTemp>
+                        {/* <FlippyTemp id={1} frontName={"Machine1"} status={this.state.status} > </FlippyTemp>
 
                     <FlippyTemp id={2} frontName={"Machine2"} staus='Stopped'> </FlippyTemp>
-                    <FlippyTemp id={3} frontName={"Machine3"} staus='Stopped'> </FlippyTemp>
+                    <FlippyTemp id={3} frontName={"Machine3"} staus='Stopped'> </FlippyTemp> */}
 
-                </Row>
+                        <Card className="bg-dark text-white" style={{ width: '20rem' }}>
+                            <Row className="justify-content-md-center">
+                                <Col className="flex-start" >
+                                    <Card.Body style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: '80%',
+                                    }}>
+                                        <div  >
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
+                                            <p>Status: Stopped</p>
+                                        </div>
+                                    </Card.Body>
+                                </Col>
+                                <Col className="flex-end" md="auto">
+                                    <ListGroup variant="flush" style={{ backgroundColor: '#343a40', }}>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Initialize</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Pause</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
+                                    </ListGroup>
+                                </Col>
+                            </Row>
+                        </Card>
+
+                        <Card className="bg-dark text-white" style={{ width: '20rem' }}>
+                            <Row className="justify-content-md-center">
+                                <Col className="flex-start" >
+                                    <Card.Body style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: '80%',
+                                    }}>
+                                        {/* <div style={{ width: "100px", height: "100px"}} > */}
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
+                                            <p>Status: Coming Soon...</p>
+                                        {/* </div> */}
+                                    </Card.Body>
+                                </Col>
+                                <Col className="flex-end" md="auto">
+                                    <ListGroup variant="flush" style={{ backgroundColor: '#343a40', }}>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Initialize</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Pause</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
+                                    </ListGroup>
+                                </Col>
+                            </Row>
+                        </Card>
+
+                    </Row>
+                </div>
             </Container>
         </div>
 
