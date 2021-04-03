@@ -35,6 +35,8 @@ const switchRoutes = (
       }
       return null;
     })}
+    {/* for routing */}
+    
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>
 );
