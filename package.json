@@ -9,11 +9,13 @@
     "@material-ui/icons": "4.9.1",
     "@reactchartjs/react-chart.js": "^1.0.0-rc.3",
     "antd": "^4.14.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "chartist": "0.10.1",
     "classnames": "2.2.6",
     "cluster": "^0.7.7",
     "history": "4.10.1",
+    "js-file-download": "^0.4.12",
     "mdbreact": "^5.0.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.6",
@@ -72,7 +74,6 @@
   "devDependencies": {
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8"
-
   },
   "browserslist": {
     "production": [

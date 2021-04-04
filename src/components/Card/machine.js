@@ -9,7 +9,8 @@ import Col from 'react-bootstrap/Col'
 import Table from 'react-bootstrap/Table'
 import FlippyTemp from './FlippyTemp1'
 import server from '../../server';
-
+const axios = require('axios');
+import download from 'js-file-download';
 
 import Card from 'react-bootstrap/Card';
 import Switch from "react-switch";
@@ -78,7 +79,116 @@ class Machine extends Component {
             .catch(err => console.log(err))
 
     };
-
+    initializeMachine = () => {
+        fetch(`${server}/users/initialize`,
+            {
+                method: "POST",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify({
+                    id: 1,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    infraStatus: data.state
+                })
+            })
+    }
+    startMachine = () => {
+        fetch(`${server}/users/start`,
+            {
+                method: "GET",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    status: data.state,
+                })
+            })
+    }
+    stopMachine = () => {
+        fetch(`${server}/users/stop`,
+            {
+                method: "GET",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    status: data.state,
+                })
+            })
+    }
+    destroyMachine = () => {
+        fetch(`${server}/users/destroy`,
+            {
+                method: "POST",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify({
+                    id: 1,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    infraStatus: data.state
+                })
+            })
+    }
+    statusMachine = () => {
+        fetch(`${server}/users/status`,
+            {
+                method: "GET",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    status: data.state,
+                })
+            })
+    }
+    getVPN = () => {
+        const vpnFile = `${server}/users/vpn`;
+        axios.get(vpnFile).then(
+            function (resp) {
+                console.log(resp)
+                download(resp.data, 'connect.ovpn');
+            }
+        );
+    }
     render() {
 
         return (<div style={{
@@ -127,51 +237,22 @@ class Machine extends Component {
                                     }}>
                                         <div  >
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
-                                            <p>Status: Stopped</p>
+                                            <p>Status: {this.state.status}</p>
                                         </div>
                                     </Card.Body>
                                 </Col>
                                 <Col className="flex-end" md="auto">
                                     <ListGroup variant="flush" style={{ backgroundColor: '#343a40', }}>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Initialize</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Pause</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button onClick={this.initializeMachine} className="p-0" variant="outlined-button">Initialize</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button onClick={this.startMachine} className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button onClick={this.stopMachine} className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button onClick={this.getVPN} className="p-0" variant="outlined-button">VPN</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button onClick={this.destroyMachine} className="p-0" variant="outlined-button">Destroy</Button></ListGroup.Item>
+                                        <ListGroup.Item><Button onClick={this.statusMachine} className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
                                     </ListGroup>
                                 </Col>
                             </Row>
                         </Card>
-
-                        <Card className="bg-dark text-white" style={{ width: '20rem' }}>
-                            <Row className="justify-content-md-center">
-                                <Col className="flex-start" >
-                                    <Card.Body style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: '80%',
-                                    }}>
-                                        {/* <div style={{ width: "100px", height: "100px"}} > */}
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
-                                            <p>Status: Coming Soon...</p>
-                                        {/* </div> */}
-                                    </Card.Body>
-                                </Col>
-                                <Col className="flex-end" md="auto">
-                                    <ListGroup variant="flush" style={{ backgroundColor: '#343a40', }}>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Initialize</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Pause</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
-                                    </ListGroup>
-                                </Col>
-                            </Row>
-                        </Card>
-
                     </Row>
                 </div>
             </Container>
