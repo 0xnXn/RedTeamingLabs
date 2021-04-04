@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -11,7 +11,11 @@ import FlippyTemp from './FlippyTemp1'
 import server from '../../server';
 const axios = require('axios');
 import download from 'js-file-download';
+import React, { useState, useEffect } from 'react';
+import { IconButton } from '@material-ui/core';
 
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import Card from 'react-bootstrap/Card';
 import Switch from "react-switch";
 import { Component } from "react";
@@ -19,6 +23,12 @@ import { Container } from "@material-ui/core";
 import Button from 'react-bootstrap/Button'
 import { ListGroup } from "react-bootstrap";
 import { Label } from "@material-ui/icons";
+import Modal from 'react-bootstrap/Modal'
+import Form from 'react-bootstrap/Form'
+import MultiSelect from "react-multi-select-component";
+
+import { useDispatch, useSelector } from 'react-redux'
+
 /* TO-DO
 A new button to Initialize machine
 After timer Flipped wala button enable By default running state mai hota hai
@@ -26,60 +36,74 @@ Each model should be independent
 */
 
 
-class Machine extends Component {
-    constructor() {
-        super();
-        this.state = { checked1: false, checked2: false, checked3: false, data: [], status: '' };
-        this.machine1 = this.machine1.bind(this);
-        this.machine2 = this.machine2.bind(this);
-        this.machine3 = this.machine3.bind(this);
-    }
+const Machine = () => {
+    const dispatch = useDispatch()
+    let count = useSelector(state => state.counter)
+    let machines = useSelector(state => state.machines)
+    const [modalShow, setModalShow] = useState(false)
 
-    componentDidMount() {
-        fetch(`${server}/users/status`,
-            {
-                method: "GET",
-                mode: "cors",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8",
-                    'Access-Control-Allow-Origin': '*'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                this.setState({
-                    status: data.state,
-                })
-            })
+    const machine = {
+        machine_name: "",
+        status: false,
+        type: null,
+        cyberSmithMachineType: null
     }
-
-    machine1(checked1) {
-        this.setState({ checked1 });
+    const setDefaults = () => {
+        setNewMachine({ machine_name: "", status: false, type: null, cyberSmithMachineType: null })
 
     }
-    machine2(checked2) {
-        this.setState({ checked2 });
+    const Os = {
+        windows: 0,
+        linux: 0,
+        mac: 0
+    }
+    const [numberOFOS, setnumberOFOS] = useState(Os)
+    const options = [
+        { label: "Windows", value: "windows" },
+        { label: "Linux", value: "linux" },
+        { label: "Mac", value: "mac" },
+    ];
+
+
+    const [selected, setSelected] = useState([]);
+
+    const [newMachine, setNewMachine] = useState(machine)
+
+    const handleClick = () => {
+        console.log("yes")
+        dispatch({ type: "INCR" })
+    }
+
+    const onSave = () => {
+        setModalShow(false)
+        dispatch({ type: "ADD_MAACHINE", payload: newMachine })
+        setDefaults()
 
     }
-    machine3(checked3) {
-        this.setState({ checked3 });
+    const onHide = () => {
+        setModalShow(false)
+        setDefaults()
 
     }
-    setStateHandler = () => {
-        fetch("https://geolocation-db.com/json/")
-            .then(res => res.json())
-            .then(res => {
-                console.log(res.IPv4)
-                this.setState({
-                    data: res.IPv4
-                })
-            })
-            .catch(err => console.log(err))
 
-    };
-    initializeMachine = () => {
+    const addMachine = () => {
+        // dispatch({ type: "ADD_MAACHINE", payload: machine })
+        setModalShow(true)
+    }
+    const onHandleChange = event => {
+        const { name, value } = event.target
+        setNewMachine({ ...newMachine, [name]: value })
+
+    }
+    const Incr = (val) => {
+        setnumberOFOS({ ...numberOFOS, [val]: numberOFOS[val] + 1 })
+    }
+
+    const Decr = (val) => {
+
+    }
+
+    const initializeMachine = () => {
         fetch(`${server}/users/initialize`,
             {
                 method: "POST",
@@ -101,7 +125,7 @@ class Machine extends Component {
                 })
             })
     }
-    startMachine = () => {
+    const startMachine = () => {
         fetch(`${server}/users/start`,
             {
                 method: "GET",
@@ -120,7 +144,7 @@ class Machine extends Component {
                 })
             })
     }
-    stopMachine = () => {
+    const stopMachine = () => {
         fetch(`${server}/users/stop`,
             {
                 method: "GET",
@@ -139,7 +163,7 @@ class Machine extends Component {
                 })
             })
     }
-    destroyMachine = () => {
+    const destroyMachine = () => {
         fetch(`${server}/users/destroy`,
             {
                 method: "POST",
@@ -161,7 +185,7 @@ class Machine extends Component {
                 })
             })
     }
-    statusMachine = () => {
+    const statusMachine = () => {
         fetch(`${server}/users/status`,
             {
                 method: "GET",
@@ -180,7 +204,7 @@ class Machine extends Component {
                 })
             })
     }
-    getVPN = () => {
+    const getVPN = () => {
         const vpnFile = `${server}/users/vpn`;
         axios.get(vpnFile).then(
             function (resp) {
@@ -189,77 +213,303 @@ class Machine extends Component {
             }
         );
     }
-    render() {
 
-        return (<div style={{
-            display: "flex",
-            borderRadius: "25px",
-            border: "2px solid white",
+    useEffect(() => {
+        // Update the document title using the browser API
+        // document.title = `You clicked ${count} times`;
+        fetch(`${server}/users/status`,
+            {
+                method: "GET",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    status: data.state,
+                })
+            })
+    }, []);
 
-            paddingTop: "50px",
 
-            paddingBottom: "50px",
-            outline: "10px",
-            borderBlockColor: "yellowgreen"
+    console.log(numberOFOS)
 
-        }}>
+    return (<div style={{
+        display: "flex",
+        borderRadius: "25px",
+        border: "2px solid white",
 
-            <Container >
-                <div className="d-flex justify-content-center">
-                    <h1 className="text-white">Infrastructures</h1>
-                </div>
-                {/* <div className="d-flex justify-content-end">
-                    <Row lassName="justify-content-md-center" style={{ width: "30%" }}>
-                        <Col className="flex-start">
-                            <Button onClick={this.setStateHandler}>Update IP</Button>
-                        </Col>
-                        <Col className="flex-start">
-                            <h4 style={{ color: "green" }}> IP: {this.state.data}</h4>
-                        </Col>
-                    </Row>
-                </div> */}
-                <div className="pt-3">
-                    <Row style={{ flex: "1", marginRight: "10px", justifyContent: "space-evenly", }}>
+        paddingTop: "50px",
 
-                        {/* <FlippyTemp id={1} frontName={"Machine1"} status={this.state.status} > </FlippyTemp>
+        paddingBottom: "50px",
+        outline: "10px",
+        borderBlockColor: "yellowgreen"
 
-                    <FlippyTemp id={2} frontName={"Machine2"} staus='Stopped'> </FlippyTemp>
-                    <FlippyTemp id={3} frontName={"Machine3"} staus='Stopped'> </FlippyTemp> */}
-
-                        <Card className="bg-dark text-white" style={{ width: '20rem' }}>
-                            <Row className="justify-content-md-center">
-                                <Col className="flex-start" >
-                                    <Card.Body style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: '80%',
-                                    }}>
-                                        <div  >
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
-                                            <p>Status: {this.state.status}</p>
-                                        </div>
-                                    </Card.Body>
-                                </Col>
-                                <Col className="flex-end" md="auto">
-                                    <ListGroup variant="flush" style={{ backgroundColor: '#343a40', }}>
-                                        <ListGroup.Item><Button onClick={this.initializeMachine} className="p-0" variant="outlined-button">Initialize</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button onClick={this.startMachine} className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button onClick={this.stopMachine} className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button onClick={this.getVPN} className="p-0" variant="outlined-button">VPN</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button onClick={this.destroyMachine} className="p-0" variant="outlined-button">Destroy</Button></ListGroup.Item>
-                                        <ListGroup.Item><Button onClick={this.statusMachine} className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
-                                    </ListGroup>
-                                </Col>
-                            </Row>
-                        </Card>
-                    </Row>
-                </div>
-            </Container>
-        </div>
-
-        );
     }
+        //     render() {
+        //     }
+    }>
+        <Modal
+
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            show={modalShow}
+
+        >
+            <Modal.Header closeButton onClick={() => {
+                setModalShow(false)
+                setDefaults()
+
+
+            }} >
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Enter Machine Details
+        </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form.Group>
+                    {/* <h4>Machine Name *</h4>
+                <Form.Control name="machine_name" type="text" placeholder=" Enter Machine Name"
+                    value={newMachine.machine_name}
+                    onChange={onHandleChange}
+                />
+                <br />
+                <h4>Machine Status *</h4>
+                <Form.Control name="status" type="text" placeholder=" Enter Machine Status"
+                    value={newMachine.status}
+                    onChange={onHandleChange}
+                />
+                <br /> */}
+
+                    <Form.Label>Type of Infrastructure</Form.Label>
+                    <Form.Control name="type" as="select" custom
+                        value={newMachine.type}
+                        onChange={onHandleChange}>
+                        <option>Pleas Select Infrastructure type</option>
+                        <option>Custom Infrastructure</option>
+                        <option>Virtual Private SandBox</option>
+                        <option>CyberSmith Pentesting Environment</option>
+
+                    </Form.Control>
+                    <br />
+                    <br />
+                    <br />
+                    {
+                        (newMachine.type === "Custom Infrastructure") ?
+                            <Form.File
+                                id="custom-file"
+                                label="Upload System Config"
+                                custom
+                            />
+                            :
+                            (newMachine.type === "Virtual Private SandBox") ?
+                                <div>
+                                    <Form.Group as={Row} controlId="formHorizontalEmail">
+                                        <Form.Label column sm={2}>
+                                            SandBox Name
+                                                    </Form.Label>
+                                        <Col sm={10}>
+                                            <Form.Control type="email" placeholder="Enter SandBox Name " />
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group as={Row} controlId="formHorizontalEmail">
+                                        <Form.Label column sm={2}>
+                                            Server
+                                                    </Form.Label>
+                                        <Col sm={10}>
+                                            <Form.Control name="Server" as="select" custom
+                                                value={newMachine.server}
+                                                onChange={onHandleChange}>
+                                                <option>Please Select a server</option>
+                                                <option>T1 Server (Private)</option>
+                                                <option>T2 Server (RedTeam)</option>
+                                                <option>T3 Server (Corporate)</option>
+                                            </Form.Control>
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group as={Row} controlId="formHorizontalEmail">
+                                        <Form.Label column sm={2}>
+                                            Select Os
+                                                    </Form.Label>
+                                        <Col sm={10}>
+                                            {/* <Form.Control name="Os" as="select" custom
+                                                value={newMachine.Os}
+                                                onChange={onHandleChange}>
+                                                <option>Please Os which you would like to include in the sandbox</option>
+                                                <option>Windows </option>
+                                                <option>Linux </option>
+                                                <option>MAC-OS </option>
+                                            </Form.Control> */}
+                                            <div>
+
+
+                                                <MultiSelect
+                                                    options={options}
+                                                    value={selected}
+                                                    onChange={setSelected}
+                                                    labelledBy={"Select"}
+                                                />
+                                            </div>
+                                            <pre>{console.log(selected)}</pre>
+                                        </Col>
+                                    </Form.Group>
+                                    {selected.map((selectedObj, idx) => {
+                                        return (
+                                            <div>
+                                                <IconButton type={selectedObj.value} onClick={() => Incr(selectedObj.value)}>
+                                                    <AddCircleIcon />
+                                                </IconButton>
+                                                {selectedObj.label}
+                                                <IconButton aria-label="delete" type={selectedObj.value} onClick={() => Decr(selectedObj.value)} >
+                                                    <RemoveCircleOutlineIcon />
+                                                </IconButton>
+
+
+
+                                            </div>
+
+                                        );
+
+                                    })
+                                    }
+
+
+
+
+                                </div>
+                                :
+                                (newMachine.type === "CyberSmith Pentesting Environment") ?
+                                    <>
+                                        <Form.Control name="cyberSmithMachineType" as="select" custom
+                                            value={newMachine.cyberSmithMachineType}
+                                            onChange={onHandleChange}>
+                                            <option>Please Select</option>
+                                            <option>Windows Pentesting</option>
+                                            <option>Linux Pentesting</option>
+                                            <option>Web-Application Pentesting</option>
+                                        </Form.Control>
+                                        <br />
+                                        <br />
+                                        {(newMachine.cyberSmithMachineType === "Please Select" || newMachine.cyberSmithMachineType === null) ?
+                                            <div>None Selected</div>
+                                            :
+                                            <div>
+                                                <Form.Group as={Row} controlId="formHorizontalEmail">
+                                                    <Form.Label column sm={2}>
+                                                        Machine Name
+                                                    </Form.Label>
+                                                    <Col sm={10}>
+                                                        <Form.Control type="email" placeholder="Machine Name " readOnly />
+                                                    </Col>
+                                                </Form.Group>
+
+                                                <Form.Group as={Row} controlId="formHorizontalEmail" >
+                                                    <Form.Label column sm={2}>
+                                                        Machine Type
+                                                    </Form.Label>
+                                                    <Col sm={10}>
+                                                        <Form.Control type="email" placeholder="Machine Type " readOnly />
+                                                    </Col>
+                                                </Form.Group>
+
+
+                                                <Form.Group as={Row} controlId="formHorizontalEmail">
+                                                    <Form.Label column sm={2}>
+                                                        Machine Environment
+                                                    </Form.Label>
+                                                    <Col sm={10}>
+                                                        <Form.Control type="email" placeholder=" Machine Environment" readOnly />
+                                                    </Col>
+                                                </Form.Group>
+                                                <Button type="submit" style={{ justifyContent: "center" }} onClick={onSave}>Initialize</Button>
+                                            </div>
+
+                                        }
+                                    </>
+                                    :
+                                    <div>None Selected</div>
+
+
+                    }
+
+                    <br />
+                    <br />
+                    <br />
+
+                    {/* <Form.File
+                    id="custom-file"
+                    label="Upload System Config"
+                    custom
+                /> */}
+                </Form.Group>
+
+
+            </Modal.Body>
+            <Modal.Footer>
+                <Button type="submit" onClick={onHide}>Cancel</Button>
+
+            </Modal.Footer>
+        </Modal>
+
+        <Container >
+
+            <div className="d-flex justify-content-center">
+                <h1 className="text-white">Infrastructures</h1>
+            </div>
+
+            <div className="pt-3">
+                <Row style={{ flex: "1", marginRight: "10px", justifyContent: "space-evenly", }}>
+                    {
+                        machines.map((mach, idx) => {
+                            return <Card className="bg-dark text-white" style={{ width: '20rem' }}>
+                                <Row className="justify-content-md-center">
+                                    <Col className="flex-start" >
+                                        <Card.Body style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            height: '80%',
+                                        }}>
+                                            <div  >
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
+                                                <p>Name: {mach.machine_name} </p>
+                                                <p>Status: {mach.status}</p>
+                                                <p>Status: {mach.type}</p>
+                                            </div>
+                                        </Card.Body>
+                                    </Col>
+                                    <Col className="flex-end" md="auto">
+                                        <ListGroup variant="flush" style={{ backgroundColor: '#343a40', }}>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={handleClick}>Initialize</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Pause</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
+                                        </ListGroup>
+                                    </Col>
+                                </Row>
+                            </Card>
+                        })
+                    }
+
+
+                </Row>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <Button onClick={addMachine} >ADD MACHINE</Button>
+                </div>
+            </div>
+        </Container>
+    </div>
+
+    );
+
 }
 
 export default Machine
