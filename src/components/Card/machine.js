@@ -9,17 +9,13 @@ import Col from 'react-bootstrap/Col'
 import Table from 'react-bootstrap/Table'
 import FlippyTemp from './FlippyTemp1'
 import server from '../../server';
+const axios = require('axios');
+import download from 'js-file-download';
 import React, { useState, useEffect } from 'react';
 import { IconButton } from '@material-ui/core';
 
-
-
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-
-
-
-
 import Card from 'react-bootstrap/Card';
 import Switch from "react-switch";
 import { Component } from "react";
@@ -120,6 +116,118 @@ const Machine = () => {
         const { name, value } = event.target
         setTeamMateName({ ...teamMate, [name]: value })
 
+
+    }
+
+    const initializeMachine = () => {
+        fetch(`${server}/users/initialize`,
+            {
+                method: "POST",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify({
+                    id: 1,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    infraStatus: data.state
+                })
+            })
+    }
+    const startMachine = () => {
+        fetch(`${server}/users/start`,
+            {
+                method: "GET",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    status: data.state,
+                })
+            })
+    }
+    const stopMachine = () => {
+        fetch(`${server}/users/stop`,
+            {
+                method: "GET",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    status: data.state,
+                })
+            })
+    }
+    const destroyMachine = () => {
+        fetch(`${server}/users/destroy`,
+            {
+                method: "POST",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify({
+                    id: 1,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    infraStatus: data.state
+                })
+            })
+    }
+    const statusMachine = () => {
+        fetch(`${server}/users/status`,
+            {
+                method: "GET",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    status: data.state,
+                })
+            })
+    }
+    const getVPN = () => {
+        const vpnFile = `${server}/users/vpn`;
+        axios.get(vpnFile).then(
+            function (resp) {
+                console.log(resp)
+                download(resp.data, 'connect.ovpn');
+            }
+        );
     }
 
     useEffect(() => {
@@ -159,7 +267,10 @@ const Machine = () => {
         outline: "10px",
         borderBlockColor: "yellowgreen"
 
-    }}>
+    }
+        //     render() {
+        //     }
+    }>
         <Modal
 
             size="lg"
