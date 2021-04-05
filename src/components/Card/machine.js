@@ -44,12 +44,12 @@ const Machine = () => {
 
     const machine = {
         machine_name: "",
-        status: false,
+        status: '',
         type: null,
         cyberSmithMachineType: null
     }
     const setDefaults = () => {
-        setNewMachine({ machine_name: "", status: false, type: null, cyberSmithMachineType: null })
+        setNewMachine({ machine_name: "", status: '', type: null, cyberSmithMachineType: null })
 
     }
     const Os = {
@@ -68,6 +68,7 @@ const Machine = () => {
     const [selected, setSelected] = useState([]);
 
     const [newMachine, setNewMachine] = useState(machine)
+    const [infraStatus, setInfraStatus] = useState('');
 
     const handleClick = () => {
         console.log("yes")
@@ -120,9 +121,7 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    infraStatus: data.state
-                })
+                setInfraStatus(data.state);
             })
     }
     const startMachine = () => {
@@ -139,9 +138,7 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    status: data.state,
-                })
+                setInfraStatus(data.state);
             })
     }
     const stopMachine = () => {
@@ -158,9 +155,7 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    status: data.state,
-                })
+                setInfraStatus(data.state);
             })
     }
     const destroyMachine = () => {
@@ -180,9 +175,7 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    infraStatus: data.state
-                })
+                setInfraStatus(data.state);
             })
     }
     const statusMachine = () => {
@@ -198,10 +191,9 @@ const Machine = () => {
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                this.setState({
-                    status: data.state,
-                })
+                console.log(machines);
+                setNewMachine({ ...newMachine, [name]: "CyberSmith Pentesting Environment", [status]: data.state })
+                setInfraStatus(data.state);
             })
     }
     const getVPN = () => {
@@ -230,9 +222,10 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    status: data.state,
-                })
+                // if(data.state != 'Terminate'){
+                    setNewMachine({ ...newMachine, [name]: "CyberSmith Pentesting Environment", [status]: data.state })
+                // }
+                // setInfraStatus(data.state);
             })
     }, []);
 
@@ -295,7 +288,6 @@ const Machine = () => {
                         <option>Custom Infrastructure</option>
                         <option>Virtual Private SandBox</option>
                         <option>CyberSmith Pentesting Environment</option>
-
                     </Form.Control>
                     <br />
                     <br />
@@ -347,8 +339,6 @@ const Machine = () => {
                                                 <option>MAC-OS </option>
                                             </Form.Control> */}
                                             <div>
-
-
                                                 <MultiSelect
                                                     options={options}
                                                     value={selected}
@@ -369,9 +359,6 @@ const Machine = () => {
                                                 <IconButton aria-label="delete" type={selectedObj.value} onClick={() => Decr(selectedObj.value)} >
                                                     <RemoveCircleOutlineIcon />
                                                 </IconButton>
-
-
-
                                             </div>
 
                                         );
@@ -491,7 +478,7 @@ const Machine = () => {
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Pause</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={statusMachine}>Status</Button></ListGroup.Item>
                                         </ListGroup>
                                     </Col>
                                 </Row>
