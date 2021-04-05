@@ -44,14 +44,14 @@ const Machine = () => {
 
     const machine = {
         machine_name: "",
-        status: false,
+        status: '',
         type: null,
         cyberSmithMachineType: null
     }
     const setDefaults = () => {
-        setNewMachine({ machine_name: "", status: false, type: null, cyberSmithMachineType: null })
-
+        setNewMachine({ machine_name: "", status: '', type: null, cyberSmithMachineType: null })
     }
+
     const Os = {
         windows: 0,
         linux: 0,
@@ -77,6 +77,7 @@ const Machine = () => {
     const [selected, setSelected] = useState([]);
 
     const [newMachine, setNewMachine] = useState(machine)
+    const [infraStatus, setInfraStatus] = useState('');
 
     const handleClick = () => {
         console.log("yes")
@@ -85,6 +86,7 @@ const Machine = () => {
 
     const onSave = () => {
         setModalShow(false)
+        initializeMachine();
         dispatch({ type: "ADD_MAACHINE", payload: newMachine })
         setDefaults()
 
@@ -136,9 +138,8 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    infraStatus: data.state
-                })
+                setNewMachine({ ...newMachine, status: data.state })
+                setInfraStatus(data.state);
             })
     }
     const startMachine = () => {
@@ -155,9 +156,9 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    status: data.state,
-                })
+                dispatch({ type: "UPDATE_MACHINE", payload: { status: data.state } })
+                // setNewMachine({ ...newMachine, status: data.state })
+                setInfraStatus(data.state);
             })
     }
     const stopMachine = () => {
@@ -174,9 +175,9 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    status: data.state,
-                })
+                dispatch({ type: "UPDATE_MACHINE", payload: { status: data.state } })
+                // setNewMachine({ ...newMachine, status: data.state })
+                setInfraStatus(data.state);
             })
     }
     const destroyMachine = () => {
@@ -196,9 +197,8 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    infraStatus: data.state
-                })
+                dispatch({ type: "DELETE_MACHINE" })
+                setInfraStatus(data.state);
             })
     }
     const statusMachine = () => {
@@ -214,10 +214,10 @@ const Machine = () => {
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                this.setState({
-                    status: data.state,
-                })
+                setNewMachine({ ...newMachine, status: data.state })
+                dispatch({ type: "UPDATE_MACHINE", payload: { status: data.state } })
+                console.log(machines);
+                setInfraStatus(data.state);
             })
     }
     const getVPN = () => {
@@ -246,9 +246,12 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    status: data.state,
-                })
+                // if(data.state != 'Terminate'){
+                if (data.state != 'Terminated') {
+                    dispatch({ type: "SET_MACHINE", payload: { ...newMachine, machine_name: "CyberSmith Pentesting Environment", status: data.state } })
+                }
+                // }
+                // setInfraStatus(data.state);
             })
     }, [])
 
@@ -312,7 +315,6 @@ const Machine = () => {
                         <option>Custom Infrastructure</option>
                         <option>Virtual Private SandBox</option>
                         <option>CyberSmith Pentesting Environment</option>
-
                     </Form.Control>
                     <br />
                     <br />
@@ -364,8 +366,6 @@ const Machine = () => {
                                                 <option>MAC-OS </option>
                                             </Form.Control> */}
                                             <div>
-
-
                                                 <MultiSelect
                                                     options={options}
                                                     value={selected}
@@ -386,9 +386,6 @@ const Machine = () => {
                                                 <IconButton aria-label="delete" type={selectedObj.value} onClick={() => Decr(selectedObj.value)} >
                                                     <RemoveCircleOutlineIcon />
                                                 </IconButton>
-
-
-
                                             </div>
 
                                         );
@@ -491,7 +488,7 @@ const Machine = () => {
                                             display: "flex",
                                             justifyContent: "center",
                                             alignItems: "center",
-                                            height: '80%',
+                                            // height: '80%',
                                         }}>
                                             <div  >
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
@@ -503,12 +500,20 @@ const Machine = () => {
                                     </Col>
                                     <Col className="flex-end" md="auto">
                                         <ListGroup variant="flush" style={{ backgroundColor: '#343a40', }}>
-                                            <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={handleClick}>Initialize</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={inviteHandleShow}>invite</Button></ListGroup.Item>
+                                            {/* <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={handleClick}>Initialize</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Pause</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={statusMachine}>Status</Button></ListGroup.Item> */}
+                                            {/* <ListGroup.Item><Button onClick={initializeMachine} className="p-0" variant="outlined-button">Initialize</Button></ListGroup.Item> */}
+                                            <ListGroup.Item><Button onClick={startMachine} className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button onClick={stopMachine} className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button onClick={getVPN} className="p-0" variant="outlined-button">VPN</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button onClick={destroyMachine} className="p-0" variant="outlined-button">Destroy</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button onClick={statusMachine} className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button onClick={statusMachine} className="p-0" variant="outlined-button">Get Details</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button onClick={statusMachine} className="p-0" variant="outlined-button">Get Key</Button></ListGroup.Item>
                                         </ListGroup>
                                     </Col>
                                 </Row>
