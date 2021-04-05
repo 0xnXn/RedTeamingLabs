@@ -61,13 +61,22 @@ const Machine = () => {
         linux: 0,
         mac: 0
     }
-    const [numberOFOS ,setnumberOFOS] = useState(Os)
+    const [numberOFOS, setnumberOFOS] = useState(Os)
+
     const options = [
         { label: "Windows", value: "windows" },
         { label: "Linux", value: "linux" },
         { label: "Mac", value: "mac" },
     ];
 
+    const teamMate = { userName: null }
+
+    const [teamMateName, setTeamMateName] = useState(teamMate)
+    const [inviteShow, inviteSetShow] = useState(false);
+
+
+    const inviteHandleClose = () => inviteSetShow(false);
+    const inviteHandleShow = () => inviteSetShow(true);
 
     const [selected, setSelected] = useState([]);
 
@@ -99,12 +108,18 @@ const Machine = () => {
         setNewMachine({ ...newMachine, [name]: value })
 
     }
-    const Incr=(val)=>{
-        setnumberOFOS({...numberOFOS,[val] : numberOFOS[val]+1 })
+    const Incr = (val) => {
+        setnumberOFOS({ ...numberOFOS, [val]: numberOFOS[val] + 1 })
     }
 
-    const Decr=(val)=>{
-        
+    const Decr = (val) => {
+        setnumberOFOS({ ...numberOFOS, [val]: numberOFOS[val] - 1 })
+
+    }
+    const onHandleInvite = (event) => {
+        const { name, value } = event.target
+        setTeamMateName({ ...teamMate, [name]: value })
+
     }
 
     useEffect(() => {
@@ -127,11 +142,12 @@ const Machine = () => {
                     status: data.state,
                 })
             })
-    }, []);
+    }, [])
 
 
     console.log(numberOFOS)
-    
+    console.log(teamMateName)
+
     return (<div style={{
         display: "flex",
         borderRadius: "25px",
@@ -252,11 +268,11 @@ const Machine = () => {
                                     {selected.map((selectedObj, idx) => {
                                         return (
                                             <div>
-                                                <IconButton  type = {selectedObj.value} onClick={()=>Incr(selectedObj.value)}>
+                                                <IconButton type={selectedObj.value} onClick={() => Incr(selectedObj.value)}>
                                                     <AddCircleIcon />
                                                 </IconButton>
                                                 {selectedObj.label}
-                                                <IconButton aria-label="delete" type = {selectedObj.value} onClick={()=>Decr(selectedObj.value)} >
+                                                <IconButton aria-label="delete" type={selectedObj.value} onClick={() => Decr(selectedObj.value)} >
                                                     <RemoveCircleOutlineIcon />
                                                 </IconButton>
 
@@ -377,7 +393,7 @@ const Machine = () => {
                                     <Col className="flex-end" md="auto">
                                         <ListGroup variant="flush" style={{ backgroundColor: '#343a40', }}>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={handleClick}>Initialize</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={inviteHandleShow}>invite</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Pause</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
@@ -395,6 +411,31 @@ const Machine = () => {
                     <Button onClick={addMachine} >ADD MACHINE</Button>
                 </div>
             </div>
+
+
+
+
+            <Modal show={inviteShow} onHide={inviteHandleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Form.Group as={Row} controlId="formHorizontalEmail">
+                    <Form.Label column sm={5}>
+                        &nbsp;&nbsp;&nbsp;TeamMate Name
+                                                    </Form.Label>
+                    <Col sm={5}>
+                        <Form.Control name="userName" placeholder=" Name " onChange={onHandleInvite} />
+                    </Col>
+                </Form.Group>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={inviteHandleClose}>
+                        Close
+          </Button>
+                    <Button variant="primary" onClick={inviteHandleClose}>
+                        Save Changes
+          </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     </div>
 
