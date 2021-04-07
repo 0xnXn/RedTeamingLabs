@@ -71,6 +71,7 @@ export default function UserProfile() {
       , width: "80%"
 
     }}>
+      <div style={{backgroundColor:"black"}}>
       <Form style={{ marginLeft: "5%", marginRight: "5%" }}>
         <Form.Row>
           <Form.Group as={Col} controlId="formGridEmail">
@@ -122,6 +123,7 @@ export default function UserProfile() {
           Update
   </Button>
       </Form>
+      </div>
     </div>
   );
 }

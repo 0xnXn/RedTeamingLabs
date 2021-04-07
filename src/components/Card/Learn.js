@@ -73,7 +73,7 @@ export default class Learn extends Component {
             <FlippyTemp frontName="Persistence" />
           </Col>
           <Col>
-            <FlippyTemp frontName="Defence and     &nbsp;  &nbsp; &nbsp; &nbsp;      Detection" />
+            <FlippyTemp frontName="Defence and         Detection" />
           </Col>
           <Col>
             <FlippyTemp frontName="Recon" />

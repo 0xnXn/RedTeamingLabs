@@ -10,6 +10,7 @@ const counter = (state = 0, actions) => {
 
 }
 
+
 const machines = (state = [], action) => {
     switch (action.type) {
         case "ADD_MAACHINE":

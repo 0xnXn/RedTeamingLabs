@@ -38,7 +38,9 @@ export default class FlippyTemp extends Component {
             marginTop:"40%",
            fontWeight:"300",
             fontSize:"30px",
-            textAlign:"center"
+            textAlign:"center",
+            lineHeight: "1.1",
+            padding :"0 ,15"
           }}>
           {this.props.frontName}
           </div>

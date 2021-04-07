@@ -1,9 +1,4 @@
 
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-// core components
-import CardDeck from 'react-bootstrap/CardDeck'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Table from 'react-bootstrap/Table'
@@ -17,17 +12,15 @@ import { IconButton } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import Card from 'react-bootstrap/Card';
-import Switch from "react-switch";
-import { Component } from "react";
 import { Container } from "@material-ui/core";
 import Button from 'react-bootstrap/Button'
 import { ListGroup } from "react-bootstrap";
-import { Label } from "@material-ui/icons";
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import MultiSelect from "react-multi-select-component";
-
+import Spinner from 'react-bootstrap/Spinner'
 import { useDispatch, useSelector } from 'react-redux'
+import { warningBoxShadow } from 'assets/jss/material-dashboard-react';
 
 /* TO-DO
 A new button to Initialize machine
@@ -51,6 +44,21 @@ const Machine = () => {
     const setDefaults = () => {
         setNewMachine({ machine_name: "", status: '', type: null, cyberSmithMachineType: null })
     }
+    const [callFunction, setCallFunction] = useState(0)
+    const [warning, setWarning] = useState(false)
+    const [warningText, setWarningText] = useState("ds ")
+
+    const warningShow = (text, type) => {
+
+        setWarningText(text)
+        setCallFunction(type)
+        setWarning(true)
+    }
+    const warningHide = () => {
+        setWarningText(" ")
+        setWarning(false)
+    }
+
 
     const Os = {
         windows: 0,
@@ -78,6 +86,7 @@ const Machine = () => {
 
     const [newMachine, setNewMachine] = useState(machine)
     const [infraStatus, setInfraStatus] = useState('');
+    const [addMachineHide, setAddMachineHide] = useState(true)
 
     const handleClick = () => {
         console.log("yes")
@@ -89,6 +98,7 @@ const Machine = () => {
         initializeMachine();
         dispatch({ type: "ADD_MAACHINE", payload: newMachine })
         setDefaults()
+        setAddMachineHide(false)
 
     }
     const onHide = () => {
@@ -143,6 +153,7 @@ const Machine = () => {
             })
     }
     const startMachine = () => {
+        console.log("hel")
         fetch(`${server}/users/start`,
             {
                 method: "GET",
@@ -200,6 +211,8 @@ const Machine = () => {
                 dispatch({ type: "DELETE_MACHINE" })
                 setInfraStatus(data.state);
             })
+        setAddMachineHide(false)
+        window.location.reload(false);
     }
     const statusMachine = () => {
         fetch(`${server}/users/status`,
@@ -228,6 +241,26 @@ const Machine = () => {
                 download(resp.data, 'connect.ovpn');
             }
         );
+    }
+
+    const warningYes = () => {
+        console.log(callFunction)
+        switch (callFunction) {
+            case 1:
+                startMachine();
+                break;
+            case 2: stopMachine();
+                break;
+
+            case 3: destroyMachine();
+                break;
+
+
+            default: console.log("sc not working")
+
+        }
+        setWarningText(" ")
+        setWarning(false)
     }
 
     useEffect(() => {
@@ -474,14 +507,60 @@ const Machine = () => {
         <Container >
 
             <div className="d-flex justify-content-center">
-                <h1 className="text-white">Infrastructures</h1>
+                <h1 className="text-white" style={{backgroundColor:"black"}}>Infrastructures</h1>
             </div>
 
             <div className="pt-3">
+
                 <Row style={{ flex: "1", marginRight: "10px", justifyContent: "space-evenly", }}>
-                    {
-                        machines.map((mach, idx) => {
-                            return <Card className="bg-dark text-white" style={{ width: '20rem' }}>
+                    {(true) ? <>
+                        {
+                            machines.map((mach, idx) => {
+                                return <Card className="bg-dark text-white" style={{ width: '25rem' }}>
+                                    <Row className="justify-content-md-center">
+                                        <Col className="flex-start" >
+                                            <Card.Body style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                // height: '80%',
+                                            }}>
+                                                <div  >
+                                                    <svg style={{ width: "150px", marginLeft: "30px" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
+                                                    <p>Name: {mach.machine_name} </p>
+                                                    <p>Status: {mach.status}</p>
+                                                    <p>Status: {mach.type}</p>
+                                                </div>
+                                            </Card.Body>
+                                        </Col>
+                                        <Col className="flex-end" md="auto">
+                                            <ListGroup variant="flush" style={{ backgroundColor: '	#C0C0C0', }}>
+                                                <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+
+                                                {/* <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={handleClick}>Initialize</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item> 
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Pause</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={statusMachine}>Status</Button></ListGroup.Item> */}
+                                                {/* <ListGroup.Item><Button onClick={initializeMachine} className="p-0" variant="outlined-button">Initialize</Button></ListGroup.Item> */}
+                                                <ListGroup.Item style={{ backgroundColor: "inherit" }} ><Button onClick={() => warningShow("Start Machine", 1)} className="p-0" variant="outlined-button" >Start</Button></ListGroup.Item>
+                                                <ListGroup.Item style={{ backgroundColor: "inherit" }} ><Button onClick={() => warningShow("Stop Machine", 2)} className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
+                                                <ListGroup.Item style={{ backgroundColor: "inherit" }} ><Button onClick={getVPN} className="p-0" variant="outlined-button">VPN</Button></ListGroup.Item>
+                                                <ListGroup.Item style={{ backgroundColor: "inherit" }} ><Button onClick={() => warningShow("Destroy Machnine", 3)} className="p-0" variant="outlined-button">Destroy</Button></ListGroup.Item>
+                                                <ListGroup.Item style={{ backgroundColor: "inherit" }}  ><Button onClick={statusMachine} className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
+                                                <ListGroup.Item style={{ backgroundColor: "inherit" }} ><Button onClick={statusMachine} className="p-0" variant="outlined-button">Get Details</Button></ListGroup.Item>
+                                                <ListGroup.Item style={{ backgroundColor: "inherit" }} > <Button onClick={statusMachine} className="p-0" variant="outlined-button">Get Key</Button></ListGroup.Item>
+                                            </ListGroup>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            })
+                        }
+                    </>
+
+                        : <div>
+                            <Card className="bg-dark text-white" style={{ width: '25rem' }}>
                                 <Row className="justify-content-md-center">
                                     <Col className="flex-start" >
                                         <Card.Body style={{
@@ -491,15 +570,19 @@ const Machine = () => {
                                             // height: '80%',
                                         }}>
                                             <div  >
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
-                                                <p>Name: {mach.machine_name} </p>
-                                                <p>Status: {mach.status}</p>
-                                                <p>Status: {mach.type}</p>
+                                                <svg style={{ width: "150px", marginLeft: "30px" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
+
+                                                <Spinner animation="border" role="status" style={{ marginTop: "20%", marginLeft: "45%" }}>
+                                                    <span className="sr-only">Loading...</span>
+                                                </Spinner>
+
                                             </div>
                                         </Card.Body>
                                     </Col>
                                     <Col className="flex-end" md="auto">
-                                        <ListGroup variant="flush" style={{ backgroundColor: '#343a40', }}>
+                                        <ListGroup variant="flush" style={{ backgroundColor: '	#C0C0C0', }}>
+                                            <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+
                                             {/* <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={handleClick}>Initialize</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
@@ -507,25 +590,38 @@ const Machine = () => {
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={statusMachine}>Status</Button></ListGroup.Item> */}
                                             {/* <ListGroup.Item><Button onClick={initializeMachine} className="p-0" variant="outlined-button">Initialize</Button></ListGroup.Item> */}
-                                            <ListGroup.Item><Button onClick={startMachine} className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button onClick={stopMachine} className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button onClick={getVPN} className="p-0" variant="outlined-button">VPN</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button onClick={destroyMachine} className="p-0" variant="outlined-button">Destroy</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button onClick={statusMachine} className="p-0" variant="outlined-button">Status</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button onClick={statusMachine} className="p-0" variant="outlined-button">Get Details</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button onClick={statusMachine} className="p-0" variant="outlined-button">Get Key</Button></ListGroup.Item>
+                                            <ListGroup.Item style={{ backgroundColor: "inherit" }} ><Button onClick={startMachine} className="p-0" variant="outlined-button" disabled="true" >Start</Button></ListGroup.Item>
+                                            <ListGroup.Item style={{ backgroundColor: "inherit" }} ><Button onClick={stopMachine} className="p-0" variant="outlined-button" disabled="true">Stop</Button></ListGroup.Item>
+                                            <ListGroup.Item style={{ backgroundColor: "inherit" }} ><Button onClick={getVPN} className="p-0" variant="outlined-button" disabled="true">VPN</Button></ListGroup.Item>
+                                            <ListGroup.Item style={{ backgroundColor: "inherit" }} ><Button onClick={destroyMachine} className="p-0" variant="outlined-button" disabled="true"> Destroy</Button></ListGroup.Item>
+                                            <ListGroup.Item style={{ backgroundColor: "inherit" }}  ><Button onClick={statusMachine} className="p-0" variant="outlined-button" disabled="true">Status</Button></ListGroup.Item>
+                                            <ListGroup.Item style={{ backgroundColor: "inherit" }} ><Button onClick={statusMachine} className="p-0" variant="outlined-button" disabled="true">Get Details</Button></ListGroup.Item>
+                                            <ListGroup.Item style={{ backgroundColor: "inherit" }} > <Button onClick={statusMachine} className="p-0" variant="outlined-button" disabled="true">Get Key</Button></ListGroup.Item>
                                         </ListGroup>
                                     </Col>
                                 </Row>
                             </Card>
-                        })
+
+                        </div>
                     }
 
-
                 </Row>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    <Button onClick={addMachine} >ADD MACHINE</Button>
-                </div>
+                {(addMachineHide) === true ?
+                    <div style={{ display: "flex", float:"right" ,color:"white",}}>
+                         Create an Infrastructure
+                        <IconButton  onClick={addMachine}> 
+                       
+                            <AddCircleIcon style={{fill:"#00acc1",height:"50px",width:"50px"}} />
+                        </IconButton>
+
+
+                    </div>
+
+
+                    :
+                    <div > </div>
+
+                }
             </div>
 
 
@@ -552,6 +648,26 @@ const Machine = () => {
           </Button>
                 </Modal.Footer>
             </Modal>
+
+
+
+
+            <Modal show={warning} onHide={warningHide}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Are you sure  you want to {warningText} </Modal.Title>
+                </Modal.Header>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={warningHide}>
+                        No
+          </Button>
+                    <Button variant="primary" onClick={warningYes}>
+                        Yes
+          </Button>
+                </Modal.Footer>
+            </Modal>
+
+
+
         </Container>
     </div>
 

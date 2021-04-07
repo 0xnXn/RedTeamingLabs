@@ -33,6 +33,13 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
+    path: "/machine",
+    name: "Machine",
+    icon: Person,
+    component: Machine,
+    layout: "/admin"
+  },
+  {
     path: "/user",
     name: "User Profile",
     icon: Person,
@@ -53,22 +60,16 @@ const dashboardRoutes = [
     component: Learn,
     layout: "/admin"
   },
-  {
-    path: "/machine",
-    name: "Machine",
-    icon: Person,
-    component: Machine,
-    layout: "/admin"
-  },
+  
 
 
-  {
-    path: "/about",
-    name: "About us",
-    icon: Person,
-    component: Aboutus,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/about",
+  //   name: "About us",
+  //   icon: Person,
+  //   component: Aboutus,
+  //   layout: "/admin"
+  // },
 
 
 

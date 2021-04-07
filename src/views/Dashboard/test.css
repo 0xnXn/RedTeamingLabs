@@ -10,3 +10,33 @@
     height: auto;
     width: 100%;
 }
+.dashboardTitle{
+    margin-bottom: 10px;
+    margin-top: 30px;
+    font-size: 25px;
+    font-weight: 500;
+    
+    text-align: center;
+
+}
+.dashboard__card{
+    display: flex;
+     justify-content: center
+}
+.svg__size{
+    height: 100px;
+    width: 100px;
+}
+p{
+    text-align: center;
+     color: #949ba2 ;
+}
+.box {
+    transition: box-shadow .3s;
+
+    float: left;
+    
+  }
+  .box:hover {
+    box-shadow: 0 8px 10px rgba(154, 207, 6, 0.2); 
+  }
