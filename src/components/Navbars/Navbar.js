@@ -40,10 +40,10 @@ export default function Header(props) {
       <Toolbar className={classes.container}>
         <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
-          <Button color="transparent" href="#" className={classes.title}>
+          <Button color="transparent" href="#" className={classes.title} style={{color:"yellowgreen",fontWeight:"500",fontSize:"25px"}}>
             {makeBrand()}
           </Button>
-        <img src={css} style={{marginLeft:"60%"}}/>
+        <img src={css} style={{float:"right"}}/>
 
         </div>
         {/* <Hidden smDown implementation="css">
