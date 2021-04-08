@@ -23,40 +23,44 @@ import Aboutus from '../src/components/Card/Aboutus'
 import Access from '../src/components/Card/Access'
 import Learn from './components/Card/Learn'
 import Machine from "./components/Card/machine"
+import ComputerIcon from '@material-ui/icons/Computer';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import SchoolIcon from '@material-ui/icons/School';
+import VpnLockIcon from '@material-ui/icons/VpnLock';
 
 const dashboardRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",
-    icon: Dashboard,
+    icon: DashboardIcon,
     component: DashboardPage,
     layout: "/admin"
   },
   {
     path: "/machine",
     name: "Machine",
-    icon: Person,
+    icon: ComputerIcon,
     component: Machine,
     layout: "/admin"
   },
-  {
-    path: "/user",
-    name: "User Profile",
-    icon: Person,
-    component: UserProfile,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/user",
+  //   name: "User Profile",
+  //   icon: Person,
+  //   component: UserProfile,
+  //   layout: "/admin"
+  // },
   {
     path: "/access",
     name: "Access",
-    icon: Person,
+    icon: VpnLockIcon,
     component: Access,
     layout: "/admin"
   },
   {
     path: "/learn",
     name: "Learn",
-    icon: Person,
+    icon: SchoolIcon,
     component: Learn,
     layout: "/admin"
   },

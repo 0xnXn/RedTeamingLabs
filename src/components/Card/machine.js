@@ -63,14 +63,38 @@ const Machine = () => {
     const Os = {
         windows: 0,
         linux: 0,
-        mac: 0
+        mac: 0,
+        msw2012: 0,
+        sles: 0,
+        us: 0,
+        ms2016: 0,
+        ms2019: 0,
+        ms2004: 0,
+        us20: 0,
+        sles15: 0,
+        rhel: 0,
+        d10: 0,
+
+
+
+
     }
     const [numberOFOS, setnumberOFOS] = useState(Os)
 
     const options = [
         { label: "Windows", value: "windows" },
-        { label: "Linux", value: "linux" },
-        { label: "Mac", value: "mac" },
+        { label: "Ubuntu Server 16.04 LTS", value: "linux" },
+        { label: "Microsoft Windows Server 2012 R2 Base", value: "msw2012" },
+        { label: "SUSE Linux Enterprise Server 12 SP5", value: "sles" },
+        { label: "Ubuntu Server 18.04 LTS ", value: "us" },
+        { label: "Microsoft Windows Server 2016 Base with Containers", value: "ms2016" },
+        { label: "Microsoft Windows Server 2004 Core Base ", value: "ms2004" },
+        { label: "Microsoft Windows Server 2019 Base with Containers", value: "ms2019" },
+        { label: "Ubuntu Server 20.04 LTS ", value: "us20" },
+        { label: "SUSE Linux Enterprise Server 15 SP2 ", value: "rhel" },
+        { label: "Red Hat Enterprise Linux 8 ", value: "mac" },
+        { label: "Debian 10 ", value: "d10" },
+        ,
     ];
 
     const teamMate = { userName: null }
@@ -411,14 +435,16 @@ const Machine = () => {
                                     </Form.Group>
                                     {selected.map((selectedObj, idx) => {
                                         return (
-                                            <div>
+                                            <div >
                                                 <IconButton type={selectedObj.value} onClick={() => Incr(selectedObj.value)}>
                                                     <AddCircleIcon />
                                                 </IconButton>
+
                                                 {selectedObj.label}
                                                 <IconButton aria-label="delete" type={selectedObj.value} onClick={() => Decr(selectedObj.value)} >
                                                     <RemoveCircleOutlineIcon />
                                                 </IconButton>
+                                                {numberOFOS[selectedObj.value]}
                                             </div>
 
                                         );
@@ -507,7 +533,7 @@ const Machine = () => {
         <Container >
 
             <div className="d-flex justify-content-center">
-                <h1 className="text-white" style={{backgroundColor:"black"}}>Infrastructures</h1>
+                <h1 className="text-white" style={{ backgroundColor: "black" }}>Infrastructures</h1>
             </div>
 
             <div className="pt-3">
@@ -607,11 +633,11 @@ const Machine = () => {
 
                 </Row>
                 {(addMachineHide) === true ?
-                    <div style={{ display: "flex", float:"right" ,color:"white",}}>
-                         Create an Infrastructure
-                        <IconButton  onClick={addMachine}> 
-                       
-                            <AddCircleIcon style={{fill:"#00acc1",height:"50px",width:"50px"}} />
+                    <div style={{ display: "flex", float: "right", color: "white", }}>
+                        Create an Infrastructure
+                        <IconButton onClick={addMachine}>
+
+                            <AddCircleIcon style={{ fill: "#00acc1", height: "50px", width: "50px" }} />
                         </IconButton>
 
 
