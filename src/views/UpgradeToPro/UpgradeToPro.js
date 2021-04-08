@@ -1,4 +1,5 @@
 import React from "react";
+import server from '../../server';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
@@ -73,11 +74,24 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function UpgradeToPro() {
-  const classes = useStyles();
+  fetch(`${server}/users/logout`,
+    {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      // history.push("/");
+    })
   return (
     <div>
-
       <Redirect to="/" />
     </div>
   );
+
 }

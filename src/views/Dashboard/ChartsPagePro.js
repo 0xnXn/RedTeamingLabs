@@ -1,6 +1,8 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
+import { Color } from "three";
+import { colors } from "@material-ui/core";
 
 class ChartsPagePro extends React.Component {
   state = {
@@ -17,7 +19,7 @@ class ChartsPagePro extends React.Component {
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: "miter",
-          pointBorderColor: "rgb(205, 130,1 58)",
+          pointBorderColor: "yellowgreen",
           pointBackgroundColor: "rgb(255, 255, 255)",
           pointBorderWidth: 10,
           pointHoverRadius: 5,
@@ -38,7 +40,7 @@ class ChartsPagePro extends React.Component {
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: "miter",
-          pointBorderColor: "rgb(35, 26, 136)",
+          pointBorderColor: "#3c4858",
           pointBackgroundColor: "rgb(255, 255, 255)",
           pointBorderWidth: 10,
           pointHoverRadius: 5,

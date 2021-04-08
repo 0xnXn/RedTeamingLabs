@@ -79,7 +79,7 @@ export default class Dashboard extends Component {
     return (
 
       <div style={{
-        display: "inline-Block",
+        display: "flex",
 
         borderRadius: "25px",
         border: "2px solid white",
@@ -288,7 +288,7 @@ export default class Dashboard extends Component {
                       </svg>
                     </Col>
                     <Col>
-                      <Row><div style={{ fontWeight: "500", color: "white", fontSize: "30px", textAlign: "center" }}>125 </div> </Row>
+                      <Row><div style={{ fontWeight: "500", color: "white", fontSize: "30px", textAlign: "center" }}>32 </div> </Row>
 
                       <Row><p style={{ fontWeight: "500", fontSize: "15px", marginTop: "6px", textAlign: "center" }}> Machines </p> </Row>
 
@@ -322,7 +322,7 @@ export default class Dashboard extends Component {
                       </svg>
                     </Col>
                     <Col>
-                      <Row><div style={{ fontWeight: "500", color: "white", fontSize: "30px", textAlign: "center" }}>125 </div> </Row>
+                      <Row><div style={{ fontWeight: "500", color: "white", fontSize: "30px", textAlign: "center" }}>6 </div> </Row>
 
                       <Row><p style={{ fontWeight: "500", fontSize: "15px", marginTop: "6px", textAlign: "center" }}> Active </p> </Row>
 
@@ -352,7 +352,7 @@ export default class Dashboard extends Component {
                       </svg>
                     </Col>
                     <Col>
-                      <Row><div style={{ fontWeight: "500", color: "white", fontSize: "30px", textAlign: "center" }}>125 </div> </Row>
+                      <Row><div style={{ fontWeight: "500", color: "white", fontSize: "30px", textAlign: "center" }}>2 </div> </Row>
 
                       <Row><p style={{ fontWeight: "500", fontSize: "15px", marginTop: "6px", textAlign: "center" }}> Connections </p> </Row>
 
@@ -363,11 +363,11 @@ export default class Dashboard extends Component {
                 </Card.Body>
               </Card>
             </Col>
-            <Col >
+            {/* <Col >
               <div style={{ background: "#343a40" }}>
                 <ChartsPagePro></ChartsPagePro>
               </div>
-            </Col>
+            </Col> */}
           </Row>
 
 

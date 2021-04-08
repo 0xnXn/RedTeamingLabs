@@ -1,18 +1,27 @@
 import React from "react";
 import cybersmith from "images/cybersmithsecure.png";
 import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck'
-import AboutusCarosal from "./AboutusCarosal";
+import axios from "axios";
+import server from '../../server';
+import download from 'js-file-download';
+
 export default function Access(props) {
+    const getKey = () => {
+        const vpnFile = `${server}/users/key`;
+        axios.get(vpnFile).then(
+            function (resp) {
+                download(resp.data, 'rtl-labs.pem');
+            }
+        );
+    }
     return (
 
         <div style={{
-            display: "inline-block",
+            display: "flex",
             borderRadius: "25px",
             border: "2px solid white",
 
@@ -82,8 +91,8 @@ export default function Access(props) {
 
                         <Card.Body>
 
-                            <div style={{ fontSize: "20px" }}> Download Your Vpn Connection Here
-                       <Button style={{ float: "right" }} >Download</Button>
+                            <div style={{ fontSize: "20px" }}> Download Your Key File
+                       <Button onClick={getKey} style={{ float: "right" }} >Download</Button>
                             </div>
                         </Card.Body>
 

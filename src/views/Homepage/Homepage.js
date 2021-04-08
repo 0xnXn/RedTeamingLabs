@@ -275,8 +275,12 @@ googleId : '',
                             </h3>
                         </Animated> */}
                             <div style={{ color: "white", }}>
-                                <h1 style={{ fontWeight: '300', fontFamily: "lobster" }}> Red Teaming Lab </h1>
-                                <h3>  </h3>
+                                <h2 className="p-3" style={{ 
+                                    color: "white",
+                                 fontWeight: '300',
+                                  fontFamily: "lobster",
+                            }}> Red Teaming Lab </h2>
+                                
                             </div>
                             <div
                                 className="f6 dim br1 ph3 pv2 mb2 dib white pa1 ma3 shadow-1"
@@ -388,7 +392,7 @@ googleId : '',
                                 ,
                                 fontFamily: "lobster",
                                 color: "white",
-                                paddingTop: "400px"
+                                // paddingTop: "400px"
                             }}
                         >
                             RedTeaming Training Course
