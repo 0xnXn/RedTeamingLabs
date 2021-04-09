@@ -40,7 +40,7 @@ function UserProfile() {
           <Col md="8">
             <Card>
               <CardHeader>
-                <h5 className="title">Edit Profile</h5>
+                <h2 className="">Edit Profile</h2>
               </CardHeader>
               <CardBody>
                 <Form>
@@ -162,7 +162,7 @@ function UserProfile() {
             </Card>
           </Col>
           <Col md="4">
-            <Card className="card-user">
+            {/* <Card className="card-user">
               <CardBody>
                 <CardText />
                 <div className="author">
@@ -176,7 +176,7 @@ function UserProfile() {
                       className="avatar"
                       src={require("assets/img/emilyz.jpg").default}
                     />
-                    <h5 className="title">Mike Andrew</h5>
+                    <h3 className="">Mike Andrew</h3>
                   </a>
                   <p className="description">Ceo/Co-Founder</p>
                 </div>
@@ -199,7 +199,7 @@ function UserProfile() {
                   </Button>
                 </div>
               </CardFooter>
-            </Card>
+            </Card> */}
           </Col>
         </Row>
       </div>

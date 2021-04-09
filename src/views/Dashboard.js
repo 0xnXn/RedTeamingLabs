@@ -76,7 +76,8 @@ function Dashboard(props) {
       <div className="content">
 
         <Row>
-          <Col style={{width :"100%",textAlign:"center" }}>   <embed src={longDesk} ></embed>
+          <Col style={{width :"100%",textAlign:"center" }}>   
+          <embed src={longDesk} ></embed>
             <h2 >WORK SPACE</h2></Col>
 
         </Row>

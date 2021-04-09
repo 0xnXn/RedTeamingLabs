@@ -25,7 +25,7 @@ export default function Access(props) {
     }
     return (
 
-        <div style={{
+        <div className="content" style={{
             display: "flex",
 
 

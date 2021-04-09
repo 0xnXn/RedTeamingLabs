@@ -25,3 +25,7 @@ li{
 .hcard__button{
     pointer-events:none;
 }
+
+.modal.show .modal-dialog{
+    transform: none !important;
+}
