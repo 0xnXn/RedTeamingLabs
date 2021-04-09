@@ -17,6 +17,7 @@
 */
 /*eslint-disable*/
 import React from "react";
+import server from '../../server';
 import { NavLink, Link, useLocation } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
@@ -107,6 +108,22 @@ function Sidebar(props) {
       );
     }
   }
+  const logout = () => {
+    fetch(`${server}/users/logout`,
+      {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          'Access-Control-Allow-Origin': '*'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // history.push("/");
+      })
+  }
   return (
     <BackgroundColorContext.Consumer>
       {({ color }) => (
@@ -141,7 +158,7 @@ function Sidebar(props) {
                 );
               })}
               <li className="active-pro">
-                <ReactstrapNavLink href="#">
+                <ReactstrapNavLink href="/" onClick={logout}>
                   <i className="tim-icons icon-spaceship" />
                   <p>Logout</p>
                 </ReactstrapNavLink>

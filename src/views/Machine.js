@@ -415,7 +415,7 @@ const Machine = () => {
 
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
-         
+
             show={modalShow}
 
         >
@@ -502,9 +502,9 @@ const Machine = () => {
                                                 <option>Linux </option>
                                                 <option>MAC-OS </option>
                                             </Form.Control> */}
-                                            <div style = {{ color: "black !important"}} >
+                                            <div style={{ color: "black !important" }} >
                                                 <MultiSelect
-                                                
+
                                                     options={options}
                                                     value={selected}
                                                     onChange={setSelected}
@@ -643,11 +643,12 @@ const Machine = () => {
                         {(mainSpinner) ? <>
                             {
                                 machines.map((mach, idx) => {
-                                    return <Card className="text-white" style={{ width: '25rem',backgroundColor:"#27293d" }}>
+                                    return <Card className="text-white" style={{ width: '25rem', backgroundColor: "#27293d" }}>
                                         <Row className="justify-content-md-center">
                                             <Col className="flex-start" >
                                                 <Card.Body style={{
-                                                    display: "flex",
+                                                    // display: "flex",
+                                                    width: "100%",
                                                     justifyContent: "center",
                                                     alignItems: "center",
                                                     // height: '80%',
@@ -689,7 +690,7 @@ const Machine = () => {
                                                         paddingTop: "10px",
                                                         width: "100px",
                                                         textAlign: "center"
-                                                    }} ><div style={{ paddingTop: "10%" }} onClick={() => warningShow("Start Machine", 1)}  >Start</div></ListGroup.Item>
+                                                    }} ><div style={{ paddingTop: "10%" }} onClick={() => warningShow("Start Machine", 1)} className="card__button" variant="outlined-button" >Start</div></ListGroup.Item>
                                                     <ListGroup.Item style={{
                                                         backgroundColor: "#007bff",
                                                         color: "white",
@@ -739,20 +740,21 @@ const Machine = () => {
                         </>
 
                             : <div>
-                                <Card className=" text-white" style={{ width: '30rem' ,backgroundColor:"#27293d"}}>
+                                <Card className="text-white" style={{ width: '25rem', backgroundColor: "#27293d" }}>
                                     <Row className="justify-content-md-center">
                                         <Col className="flex-start" >
                                             <Card.Body style={{
-                                                display: "flex",
+                                                width: "100%",
+                                                // display: "flex",
                                                 justifyContent: "center",
                                                 alignItems: "center",
                                                 // height: '80%',
                                             }}>
                                                 <div  >
-
-                                                    <svg style={{ width: "150px", marginLeft: "30px" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" /></svg>
-
-                                                    <Spinner animation="border" role="status" style={{ marginTop: "20%", marginLeft: "45%" }}>
+                                                    <div>
+                                                        <img height="200 " src={machineImage} />
+                                                    </div>
+                                                    <Spinner animation="border" role="status" style={{  marginLeft: "45%" }}>
                                                         <span className="sr-only">Loading...</span>
                                                     </Spinner>
 
@@ -760,11 +762,11 @@ const Machine = () => {
                                             </Card.Body>
                                         </Col>
                                         <Col className="flex-end" md="auto">
-                                            <ListGroup >
-
+                                            <ListGroup variant="flush" style={{ backgroundColor: '	#C0C0C0', }}>
+                                                <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
 
                                                 {/* <ListGroup.Item><Button className="p-0" variant="outlined-button" onClick={handleClick}>Initialize</Button></ListGroup.Item>
-                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item>
+                                            <ListGroup.Item><Button className="p-0" variant="outlined-button">Start</Button></ListGroup.Item> 
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Stop</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Pause</Button></ListGroup.Item>
                                             <ListGroup.Item><Button className="p-0" variant="outlined-button">Reset</Button></ListGroup.Item>
@@ -772,21 +774,13 @@ const Machine = () => {
                                                 {/* <ListGroup.Item><Button onClick={initializeMachine} className="p-0" variant="outlined-button">Initialize</Button></ListGroup.Item> */}
                                                 <ListGroup.Item style={{
 
-backgroundColor: "#007bff",
-color: "white",
+                                                    backgroundColor: "#007bff",
+                                                    color: "white",
                                                     height: "50px",
                                                     paddingTop: "10px",
                                                     width: "100px",
                                                     textAlign: "center"
-                                                }} ><div style={{ paddingTop: "10%" }} onClick={() => warningShow("Start Machine", 1)}  >Start</div></ListGroup.Item>
-                                                <ListGroup.Item style={{
-                                                     backgroundColor: "#007bff",
-                                                     color: "white",
-                                                    height: "50px",
-                                                    paddingTop: "10px",
-                                                    width: "100px",
-                                                    textAlign: "center"
-                                                }} ><div style={{ paddingTop: "10%" }} onClick={() => warningShow("Stop Machine", 2)} className="card__button" variant="outlined-button">Stop</div></ListGroup.Item>
+                                                }} ><div style={{ paddingTop: "10%" }} className="hcard__button" variant="outlined-button" >Start</div></ListGroup.Item>
                                                 <ListGroup.Item style={{
                                                     backgroundColor: "#007bff",
                                                     color: "white",
@@ -794,7 +788,7 @@ color: "white",
                                                     paddingTop: "10px",
                                                     width: "100px",
                                                     textAlign: "center"
-                                                }} ><div style={{ paddingTop: "10%" }} onClick={getVPN} variant="outlined-button" className="card__button">VPN</div></ListGroup.Item>
+                                                }} ><div style={{ paddingTop: "10%" }} className="hcard__button" variant="outlined-button">Stop</div></ListGroup.Item>
                                                 <ListGroup.Item style={{
                                                     backgroundColor: "#007bff",
                                                     color: "white",
@@ -802,23 +796,32 @@ color: "white",
                                                     paddingTop: "10px",
                                                     width: "100px",
                                                     textAlign: "center"
-                                                }} ><div style={{ paddingTop: "10%" }} onClick={() => warningShow("Destroy Machnine", 3)} className="card__button" variant="outlined-button">Destroy</div></ListGroup.Item>
+                                                }} ><div style={{ paddingTop: "10%" }} variant="outlined-button" className="hcard__button">VPN</div></ListGroup.Item>
                                                 <ListGroup.Item style={{
-                                                     backgroundColor: "#007bff",
-                                                     color: "white",
+                                                    backgroundColor: "#007bff",
+                                                    color: "white",
                                                     height: "50px",
                                                     paddingTop: "10px",
                                                     width: "100px",
                                                     textAlign: "center"
-                                                }} ><div style={{ paddingTop: "10%" }} onClick={statusMachine} className="card__button" variant="outlined-button">Status</div></ListGroup.Item>
+                                                }} ><div style={{ paddingTop: "10%" }} className="hcard__button" variant="outlined-button">Destroy</div></ListGroup.Item>
                                                 <ListGroup.Item style={{
-                                                     backgroundColor: "#007bff",
-                                                     color: "white",
+                                                    backgroundColor: "#007bff",
+                                                    color: "white",
                                                     height: "50px",
                                                     paddingTop: "10px",
                                                     width: "100px",
                                                     textAlign: "center"
-                                                }} ><div style={{ paddingTop: "10%" }} onClick={layoutShow} className="card__button" variant="outlined-button">Get Details</div></ListGroup.Item>
+                                                }} ><div style={{ paddingTop: "10%" }} className="hcard__button" variant="outlined-button">Status</div></ListGroup.Item>
+                                                <ListGroup.Item style={{
+                                                    backgroundColor: "#007bff",
+                                                    color: "white",
+                                                    height: "50px",
+                                                    paddingTop: "10px",
+                                                    width: "100px",
+                                                    textAlign: "center"
+
+                                                }} ><div style={{ paddingTop: "10%" }} className="hcard__button" variant="outlined-button">Get Details</div></ListGroup.Item>
                                             </ListGroup>
                                         </Col>
                                     </Row>
