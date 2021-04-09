@@ -1,0 +1,23 @@
+.custom-select{
+    color: black !important;
+}
+ul{
+    color:black !important;
+}
+li{
+    color: black !important 
+}
+.form-control[readonly]{
+    background-color:rgb(201, 192, 192);
+    color: white !important;
+}
+.list-group-item{
+    padding: 0% !important;
+}
+.card__button{
+    background-color: "white";
+    color:"black";
+    height:"20px";
+    padding-top:"10px";
+    text-align:"center" 
+}

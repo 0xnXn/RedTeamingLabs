@@ -1,0 +1,20 @@
+.dashboard__card{
+    display: flex;
+     justify-content: center
+}
+.card__title{
+    text-align: center;
+    font-weight: 300;
+    color: white;
+    font-size: 19px;
+
+}
+.card__content{
+    text-align: center;
+    color: #525f7f !important;
+}
+
+.icon:hover {
+    fill: #0772db;
+  }
+  
