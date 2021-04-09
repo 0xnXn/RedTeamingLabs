@@ -49,7 +49,7 @@ function UserProfile() {
                       <FormGroup>
                         <label>Company (disabled)</label>
                         <Input
-                          defaultValue="Creative Code Inc."
+                          defaultValue="Tech Corp"
                           disabled
                           placeholder="Company"
                           type="text"
@@ -60,7 +60,7 @@ function UserProfile() {
                       <FormGroup>
                         <label>Username</label>
                         <Input
-                          defaultValue="michael23"
+                          defaultValue="john.doe"
                           placeholder="Username"
                           type="text"
                         />
@@ -71,7 +71,7 @@ function UserProfile() {
                         <label htmlFor="exampleInputEmail1">
                           Email address
                         </label>
-                        <Input placeholder="mike@email.com" type="email" />
+                        <Input placeholder="john.doe@gmail.com" type="email" />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -80,7 +80,7 @@ function UserProfile() {
                       <FormGroup>
                         <label>First Name</label>
                         <Input
-                          defaultValue="Mike"
+                          defaultValue="John"
                           placeholder="Company"
                           type="text"
                         />
@@ -90,7 +90,7 @@ function UserProfile() {
                       <FormGroup>
                         <label>Last Name</label>
                         <Input
-                          defaultValue="Andrew"
+                          defaultValue="Doe"
                           placeholder="Last Name"
                           type="text"
                         />
@@ -102,7 +102,7 @@ function UserProfile() {
                       <FormGroup>
                         <label>Address</label>
                         <Input
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                          defaultValue="Nr Bombay Street, Virar"
                           placeholder="Home Address"
                           type="text"
                         />
@@ -114,7 +114,7 @@ function UserProfile() {
                       <FormGroup>
                         <label>City</label>
                         <Input
-                          defaultValue="Mike"
+                          defaultValue="Mumbai"
                           placeholder="City"
                           type="text"
                         />
@@ -124,7 +124,7 @@ function UserProfile() {
                       <FormGroup>
                         <label>Country</label>
                         <Input
-                          defaultValue="Andrew"
+                          defaultValue="India"
                           placeholder="Country"
                           type="text"
                         />
@@ -133,22 +133,7 @@ function UserProfile() {
                     <Col className="pl-md-1" md="4">
                       <FormGroup>
                         <label>Postal Code</label>
-                        <Input placeholder="ZIP Code" type="number" />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="8">
-                      <FormGroup>
-                        <label>About Me</label>
-                        <Input
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
-                          placeholder="Here can be your description"
-                          rows="4"
-                          type="textarea"
-                        />
+                        <Input defaultValue="400440" placeholder="ZIP Code" type="number" />
                       </FormGroup>
                     </Col>
                   </Row>

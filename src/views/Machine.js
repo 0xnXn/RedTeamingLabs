@@ -182,6 +182,7 @@ const Machine = () => {
     }
 
     const initializeMachine = () => {
+        setStatusSpinner(false)
         fetch(`${server}/users/initialize`,
             {
                 method: "POST",
@@ -200,6 +201,7 @@ const Machine = () => {
                 console.log(data);
                 setNewMachine({ ...newMachine, machine_name: "CyberSmith Pentesting Environment", status: data.state })
                 setInfraStatus(data.state);
+                setStatusSpinner(true)
             })
     }
     const startMachine = () => {

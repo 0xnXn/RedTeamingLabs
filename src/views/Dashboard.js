@@ -66,6 +66,11 @@ function Dashboard(props) {
     let path = `/admin/machine`;
     history.push(path)
   }
+
+  const redirectCSS = () => {
+    window.open('https://www.cybersmithsecure.com/index.php/blog/', '_blank'); 
+  }
+
   const redirectAccess = () => {
 
     let path1 = `/admin/access`;
@@ -117,7 +122,7 @@ function Dashboard(props) {
 
               <CardBody>
                 <div className="chart-area">
-                  <div className="dashboard__card">
+                  <div className="dashboard__card" onClick={redirectCSS}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="icon" height="150" width="150" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" /></svg>
 
                   </div>

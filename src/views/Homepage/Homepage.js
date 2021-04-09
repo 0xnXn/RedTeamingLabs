@@ -54,7 +54,8 @@ googleId : '',
                 points: 5.00,
                 maxDistance: 23.00,
                 spacing: 15.00,
-                backgroundColor: "black",
+                // backgroundColor: "black",
+                backgroundColor: "#1e1e2f",
                 color: 0xa0c37d,
         })
       }
