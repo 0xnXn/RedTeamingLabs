@@ -93,7 +93,7 @@ googleId : '',
         console.log(response)
         this.setState({
             gloading: true,
-            token_id: response.tc.id_token
+            token_id: response.tokenObj.id_token
         })
     
         // fetch(`${server}/users/verify`,
@@ -107,7 +107,7 @@ googleId : '',
                     'Access-Control-Allow-Origin': '*'
                 },
                 body: JSON.stringify({
-                    token_id: response.tc.id_token,
+                    token_id: response.tokenObj.id_token,
                     profileObj: response.profileObj,
                 })
             })

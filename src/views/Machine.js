@@ -156,7 +156,31 @@ const Machine = () => {
 
     }
     const onSandboxInitialize = () => {
-        console.log("bruh")
+        /*TO-DO
+        Add fetch
+        */
+        setStatusSpinner(false)
+        fetch(`${server}/users/initializeCustom`,
+            {
+                method: "POST",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify({
+                    numberOFOS
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // setNewMachine({ ...newMachine, machine_name: "Virtual Private SandBox", status: data.state })
+                // setInfraStatus(data.state);
+                setStatusSpinner(true)
+            })
+        // console.log("bruh")
     }
 
     const addMachine = () => {
@@ -488,7 +512,7 @@ const Machine = () => {
                                                         SandBox Name
                                                     </Form.Label>
                                                     <Col sm={10}>
-                                                        <Form.Control type="email" placeholder="Enter SandBox Name " />
+                                                        <Form.Control style={{ color: 'black' }} type="email" placeholder="Enter SandBox Name " />
                                                     </Col>
                                                 </Form.Group>
                                                 <Form.Group as={Row} controlId="formHorizontalEmail">
