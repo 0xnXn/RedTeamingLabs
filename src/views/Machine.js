@@ -22,6 +22,8 @@ import machine1 from '../images/machine1.svg';
 import "./Machine.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import machineImage from '../images/machine.png';
+import { JsonToTable } from "react-json-to-table";
+
 import {
     Button,
 
@@ -35,6 +37,7 @@ import {
 
 
 } from "reactstrap";
+import { Details } from '@material-ui/icons';
 const axios = require('axios');
 
 /* TO-DO
@@ -66,6 +69,18 @@ const Machine = () => {
     const [showImage, setShowImage] = useState(true)
     const [statusSpinner, setStatusSpinner] = useState(false)
     const [mainSpinner, setMainSpinner] = useState(true)
+    const [customInfraInfo, setCustomInfraInfo] = useState()
+    // const [customInfraInfo, setCustomInfraInfo] = useState(
+    // {
+    // "asd": { "value": '' },
+    // "linux_web_server_details": { "value": '' },
+    // "router-id": { "value": "i-00c6fc95cd681d07f" },
+    // "router-ip": { "value": "13.234.111.104" },
+    // "router-state": { "value": "running" },
+    // "windows_10_details": { "value": [{ "instance_id": "i-032d5aac7688bcb04", "instance_state": "running", "private_ip": "172.31.100.34", "public_ip": "" }, { "instance_id": "i-05150c97aebc219ca", "instance_state": "running", "private_ip": "172.31.100.116", "public_ip": "" }] },
+    // "windows_server_details": { "value": '' }
+    // }
+    // )
 
     const warningShow = (text, type) => {
         setWarningText(text)
@@ -153,7 +168,6 @@ const Machine = () => {
     const onHide = () => {
         setModalShow(false)
         setDefaults()
-
     }
     const onSandboxInitialize = () => {
         setModalShow(false)
@@ -327,40 +341,65 @@ const Machine = () => {
     }
     const getLayout = () => {
         const vpnFile = `${server}/users/layout`;
-        // axios({
-        //     url: vpnFile,
-        //     method: 'GET',
-        //     responseType: 'blob', // Important
-        // }).then((response) => {
-        //     console.log(response);
-        //     setTest(response.data);
-        //     setShowImage(false);
-        //     // FileDownload(response.data, 'report.png');
-        // });
-        // axios.get(vpnFile).then(
-        //     function (resp) {
-        //         console.log(resp)
-        //         setTest(resp.data);
-        //         download(resp.data, 'asd.png');
-        //         // return resp.data;
-        //     }
-        // );
-        fetch(`${server}/users/layout`,
-            {
-                method: "GET",
-                mode: "cors",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8",
-                    'Access-Control-Allow-Origin': '*'
-                }
-            })
+        fetch(`${server}/users/getLayoutType`, {
+            method: "GET",
+            mode: "cors",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                'Access-Control-Allow-Origin': '*'
+            }
+        })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                // setTest(data);
+                if (data.layout == 'CSS_labs') {
+                    axios({
+                        url: vpnFile,
+                        method: 'GET',
+                        responseType: 'blob', // Important
+                    }).then((response) => {
+                        console.log(response);
+                        setTest(response.data);
+                        setShowImage(false);
+                        // FileDownload(response.data, 'report.png');
+                    });
+                } else if (data.layout == 'User_defined_labs') {
+                    fetch(`${server}/users/layout`,
+                        {
+                            method: "GET",
+                            mode: "cors",
+                            credentials: "include",
+                            headers: {
+                                "Content-Type": "application/json; charset=utf-8",
+                                'Access-Control-Allow-Origin': '*'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            for (let key in data) {
+                                for (const key2 in data[key]) {
+                                    if (key2 != 'value') {
+                                        delete data[key][key2]
+                                    }
+                                }
+                            }
+                            console.log(data['windows_10-details'])
+                            setCustomInfraInfo(data);
+                            setShowImage(false);
+                            // setTest(data);
+                        })
+                }
             })
     }
+    useEffect(() => {
+        console.log('state changed')
+        try {
+            console.log(customInfraInfo['windows_10-details'].value)
+        } catch (e) {
+
+        }
+    }, [customInfraInfo])
     const getVPN = () => {
         setStatusSpinner(false)
         const vpnFile = `${server}/users/vpn`;
@@ -939,6 +978,38 @@ const Machine = () => {
                                                 </Spinner>
                                             </> :
                                             <>
+                                                <>
+                                                    {(customInfraInfo['vyos_router_details'].value != null) ?
+                                                        <>
+                                                            <h5>Router / VPN Server</h5>
+                                                            <JsonToTable json={customInfraInfo['vyos_router_details'].value} />
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {(customInfraInfo['windows_10_details'].value != null) ?
+                                                        <>
+                                                            <h5>Windows 10</h5>
+                                                            <JsonToTable json={customInfraInfo['windows_10_details'].value} />
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {(customInfraInfo['windows_10_details'].value != null) ?
+                                                        <>
+                                                            <h5>Windows Server 2019</h5>
+                                                            <JsonToTable json={customInfraInfo['windows_server_details'].value} />
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {(customInfraInfo['windows_10_details'].value != null) ?
+                                                        <>
+                                                            <h5>Linux Server</h5>
+                                                            <JsonToTable json={customInfraInfo['linux_web_server_details'].value} />
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {/* <JsonToTable json={customInfraInfo['linux_web_server-details'].value} /> */}
+                                                </>
+
                                                 {(test) != '' ?
                                                     <embed width="100%" height="600" src={URL.createObjectURL(test)} ></embed>
                                                     : <></>

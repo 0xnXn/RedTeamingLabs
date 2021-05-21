@@ -29,3 +29,7 @@ li{
 .modal.show .modal-dialog{
     transform: none !important;
 }
+h5 {
+    color: black !important;
+    text-align: center;
+}
