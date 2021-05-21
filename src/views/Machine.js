@@ -106,14 +106,14 @@ const Machine = () => {
     const [numberOFOS, setnumberOFOS] = useState(Os)
 
     const options = [
-        { label: "Windows", value: "windows" },
+        { label: "Windows 10", value: "windows" },
+        { label: "Microsoft Windows Server 2019 Base with Containers", value: "ms2019" },
         { label: "Ubuntu Server 16.04 LTS", value: "linux" },
         { label: "Microsoft Windows Server 2012 R2 Base", value: "msw2012" },
         { label: "SUSE Linux Enterprise Server 12 SP5", value: "sles" },
         { label: "Ubuntu Server 18.04 LTS ", value: "us" },
         { label: "Microsoft Windows Server 2016 Base with Containers", value: "ms2016" },
         { label: "Microsoft Windows Server 2004 Core Base ", value: "ms2004" },
-        { label: "Microsoft Windows Server 2019 Base with Containers", value: "ms2019" },
         { label: "Ubuntu Server 20.04 LTS ", value: "us20" },
         { label: "SUSE Linux Enterprise Server 15 SP2 ", value: "rhel" },
         { label: "Red Hat Enterprise Linux 8 ", value: "mac" },
@@ -145,7 +145,7 @@ const Machine = () => {
     const onSave = () => {
         setModalShow(false)
         initializeMachine();
-        dispatch({ type: "ADD_MAACHINE", payload: newMachine })
+        dispatch({ type: "ADD_MACHINE", payload: newMachine })
         setDefaults()
         setAddMachineHide(false)
 
@@ -156,10 +156,8 @@ const Machine = () => {
 
     }
     const onSandboxInitialize = () => {
-        /*TO-DO
-        Add fetch
-        */
-        setStatusSpinner(false)
+        setModalShow(false)
+        setMainSpinner(true)
         fetch(`${server}/users/initializeCustom`,
             {
                 method: "POST",
@@ -176,15 +174,19 @@ const Machine = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                // setNewMachine({ ...newMachine, machine_name: "Virtual Private SandBox", status: data.state })
-                // setInfraStatus(data.state);
+                setNewMachine({ ...newMachine, machine_name: "Virtual Private SandBox", status: data.state })
+                setInfraStatus(data.state);
                 setStatusSpinner(true)
+                setMainSpinner(false)
+                dispatch({ type: "ADD_MACHINE", payload: newMachine })
+                setDefaults()
+                setAddMachineHide(false)
             })
         // console.log("bruh")
     }
 
     const addMachine = () => {
-        // dispatch({ type: "ADD_MAACHINE", payload: machine })
+        // dispatch({ type: "ADD_MACHINE", payload: machine })
         setModalShow(true)
     }
     const onHandleChange = event => {
@@ -284,12 +286,14 @@ const Machine = () => {
                 },
                 body: JSON.stringify({
                     id: 1,
+
                 })
             })
             .then(response => response.json())
             .then(data => {
                 console.log(data);
                 if (data.state == 'Destroyed') {
+
                     dispatch({ type: "DELETE_MACHINE" })
                     setInfraStatus(data.state);
                     setStatusSpinner(true);
@@ -312,25 +316,27 @@ const Machine = () => {
             })
             .then(response => response.json())
             .then(data => {
-                setNewMachine({ ...newMachine, status: data.state })
-                dispatch({ type: "UPDATE_MACHINE", payload: { status: data.state } })
-                console.log(machines);
+                if (data.state != 'empty') {
+                    setNewMachine({ ...newMachine, status: data.state })
+                    dispatch({ type: "UPDATE_MACHINE", payload: { status: data.state } })
+                    console.log(machines);
+                    setInfraStatus(data.state);
+                }
                 setStatusSpinner(true)
-                setInfraStatus(data.state);
             })
     }
     const getLayout = () => {
         const vpnFile = `${server}/users/layout`;
-        axios({
-            url: vpnFile,
-            method: 'GET',
-            responseType: 'blob', // Important
-        }).then((response) => {
-            console.log(response);
-            setTest(response.data);
-            setShowImage(false);
-            // FileDownload(response.data, 'report.png');
-        });
+        // axios({
+        //     url: vpnFile,
+        //     method: 'GET',
+        //     responseType: 'blob', // Important
+        // }).then((response) => {
+        //     console.log(response);
+        //     setTest(response.data);
+        //     setShowImage(false);
+        //     // FileDownload(response.data, 'report.png');
+        // });
         // axios.get(vpnFile).then(
         //     function (resp) {
         //         console.log(resp)
@@ -339,21 +345,21 @@ const Machine = () => {
         //         // return resp.data;
         //     }
         // );
-        // fetch(`${server}/users/layout`,
-        //     {
-        //         method: "GET",
-        //         mode: "cors",
-        //         credentials: "include",
-        //         headers: {
-        //             "Content-Type": "application/json; charset=utf-8",
-        //             'Access-Control-Allow-Origin': '*'
-        //         }
-        //     })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log(data);
-        //         setTest(data);
-        //     })
+        fetch(`${server}/users/layout`,
+            {
+                method: "GET",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // setTest(data);
+            })
     }
     const getVPN = () => {
         setStatusSpinner(false)
@@ -409,7 +415,7 @@ const Machine = () => {
             .then(data => {
                 console.log(data);
                 // if(data.state != 'Terminate'){
-                if (data.state != 'Terminated') {
+                if (data.state != 'Terminated' && data.state != 'empty') {
                     setAddMachineHide(false)
                     dispatch({ type: "SET_MACHINE", payload: { ...newMachine, machine_name: "CyberSmith Pentesting Environment", status: data.state } })
                 } else {
@@ -507,14 +513,6 @@ const Machine = () => {
                                         :
                                         (newMachine.type === "Virtual Private SandBox") ?
                                             <div>
-                                                <Form.Group as={Row} controlId="formHorizontalEmail">
-                                                    <Form.Label column sm={2}>
-                                                        SandBox Name
-                                                    </Form.Label>
-                                                    <Col sm={10}>
-                                                        <Form.Control style={{ color: 'black' }} type="email" placeholder="Enter SandBox Name " />
-                                                    </Col>
-                                                </Form.Group>
                                                 <Form.Group as={Row} controlId="formHorizontalEmail">
                                                     <Form.Label column sm={2}>
                                                         Server

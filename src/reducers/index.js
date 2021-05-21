@@ -13,7 +13,7 @@ const counter = (state = 0, actions) => {
 
 const machines = (state = [], action) => {
     switch (action.type) {
-        case "ADD_MAACHINE":
+        case "ADD_MACHINE":
             state.push(action.payload)
             return [...state]
         case "SET_MACHINE":
